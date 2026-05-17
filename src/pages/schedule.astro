@@ -85,10 +85,12 @@ function clsLabel(c: 'B' | 'C' | 'X') {
                         : `Away · ${g.opp.split(' ')[0]}`;
                     return (
                       <div
-                        class={`game-row ${isPast ? 'is-past' : ''} ${i % 2 === 0 ? 'is-stripe' : ''}`}
+                        class={`game-row ${isPast ? 'is-past' : ''} ${i % 2 === 0 ? 'is-stripe' : ''} ${g.special.includes('100 Year') ? 'hhfx-clickable' : ''}`}
                         data-home={g.home ? '1' : '0'}
                         data-cls={g.cls}
                         data-special={g.special ? '1' : '0'}
+                        data-hhfx-click={g.special.includes('100 Year') ? 'overlay' : undefined}
+                        title={g.special.includes('100 Year') ? 'Tap for centennial fireworks' : undefined}
                       >
                         <div class={`game-stripe ${stripeCls}`}></div>
                         <div class="game-date">

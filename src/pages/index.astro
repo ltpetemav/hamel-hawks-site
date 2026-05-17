@@ -91,7 +91,7 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
               <text x="22" y="304" text-anchor="middle" font-family="Anton, sans-serif" font-size="16" fill="#E0B852" letter-spacing="2">★</text>
             </g>
           </svg>
-          <div class="monogram-logo">
+          <div class="monogram-logo" data-hhfx-click="combo" title="Tap for centennial flourish">
             <img src="/assets/logo-100.png" alt="Hamel Hawks 100 Year Anniversary" />
           </div>
         </div>
@@ -132,7 +132,9 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
 
           <div class="stat-strip">
             <div>
-              <div class="century" style="font-size: 56px; color: var(--accent);">100</div>
+              <div class="century hhfx-odo"
+                   data-target="100" data-start="0" data-duration="2400"
+                   style="font-size: 56px; color: var(--accent);">100</div>
               <div class="tag stat-label">Years on the diamond</div>
             </div>
             <div>
@@ -170,19 +172,20 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
         </p>
       </div>
 
-      <!-- Championship banners -->
+      <!-- Championship banners — raise-in on scroll; 1993 (national title)
+           is clickable for a centennial flourish -->
       <div class="banner-row">
-        <div class="banner banner-state">
+        <div class="banner banner-state hhfx-banner">
           <div class="banner-cat">Class B State</div>
           <div class="century banner-year">1987</div>
           <div class="banner-tag">★ CHAMPIONS</div>
         </div>
-        <div class="banner banner-national">
+        <div class="banner banner-national hhfx-banner hhfx-clickable" data-hhfx-click="overlay" title="Tap the national-title banner for a centennial flourish">
           <div class="banner-cat">National · Class B World Series</div>
           <div class="century banner-year">1993</div>
           <div class="banner-tag">★ ★ ★ CHAMPIONS</div>
         </div>
-        <div class="banner banner-state">
+        <div class="banner banner-state hhfx-banner">
           <div class="banner-cat">Class B State</div>
           <div class="century banner-year">1997</div>
           <div class="banner-tag">★ CHAMPIONS</div>
@@ -371,7 +374,7 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
   <!-- ================== JOIN ================== -->
   <section class="section section-dark join-cta" data-screen-label="07 Join" style="background: var(--navy-deep); text-align: center;">
     <div class="wrap" style="max-width: 920px;">
-      <div class="century join-100">100</div>
+      <div class="century join-100 hhfx-shimmer" data-hhfx-click="overlay" title="Tap to launch fireworks">100</div>
       <h2 class="headline join-headline" style="color: var(--cream);">
         The next chapter <em>starts at the gates.</em>
       </h2>
