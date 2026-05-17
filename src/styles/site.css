@@ -574,3 +574,66 @@ image-slot { background: rgba(14, 31, 58, 0.06); }
 @media print {
   .nav, .topbar, .footer, .tweaks-panel { display: none !important; }
 }
+
+/* ============================================================
+   Mobile refinements (≤ 720px)
+   ============================================================ */
+@media (max-width: 720px) {
+  body { font-size: 17px; }
+
+  /* Topbar collapses — hide social row, shrink left tagline */
+  .topbar-inner { height: 28px; padding: 0 16px; }
+  .topbar-left { gap: 10px; font-size: 10px; }
+  .topbar-left > span:nth-child(4),
+  .topbar-left > span:nth-child(5) { display: none; }
+  .topbar-right { display: none; }
+
+  /* Nav becomes tighter */
+  .nav-inner { height: 64px; padding: 0 16px; gap: 12px; }
+  .brand-mark { width: 44px; height: 44px; }
+  .brand-mark img { width: 38px; height: 38px; }
+  .brand-text .name { font-size: 18px; }
+  .brand-text .sub { font-size: 9px; letter-spacing: 0.18em; }
+
+  /* Hero — kill the giant min-height */
+  .hero { min-height: auto; }
+  .hero-inner { padding: 36px 20px 80px; gap: 28px; }
+  .hero-title { font-size: clamp(48px, 14vw, 96px); }
+  .hero-sub { font-size: 17px; margin-top: 20px; }
+  .hero-cta { margin-top: 24px; gap: 10px; }
+  .hero-cta .btn { padding: 10px 14px; font-size: 12px; letter-spacing: 0.1em; }
+  .hero-years { font-size: 11px; letter-spacing: 0.28em; margin-bottom: 14px; }
+  .hero-scoreline { position: static; background: var(--navy-deep); }
+  .hero-scoreline-inner { padding: 10px 16px; font-size: 9px; gap: 8px; }
+
+  /* Section padding scales down */
+  .section { padding: 60px 0; }
+  .section[style*="padding"] { padding: 60px 0 !important; }
+
+  /* Headlines */
+  .headline { font-size: clamp(28px, 7vw, 40px); line-height: 1.08; }
+  .display { font-size: clamp(40px, 10vw, 64px); }
+  .lede { font-size: 16px; }
+  .eyebrow { font-size: 10px; letter-spacing: 0.22em; gap: 8px; }
+  .eyebrow::before { width: 18px; }
+
+  /* Containers — tighter gutters */
+  :root { --gutter: 18px; }
+
+  /* Footer */
+  .footer { padding: 50px 0 28px; }
+  .footer-grid { padding-bottom: 36px; gap: 32px; }
+  .footer-brand .century-small { font-size: 60px; }
+
+  /* Card corners — shrink */
+  .card { padding: 22px; }
+}
+
+/* ============================================================
+   Very narrow phones (≤ 380px)
+   ============================================================ */
+@media (max-width: 380px) {
+  .topbar-left > span:nth-child(3) { display: none; }
+  .hero-title { font-size: clamp(40px, 13vw, 72px); }
+  .display { font-size: clamp(36px, 11vw, 56px); }
+}

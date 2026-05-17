@@ -118,6 +118,16 @@ import Base from '../layouts/Base.astro';
     color: var(--fg-muted); margin-top: 6px; letter-spacing: 0.1em;
   }
   .direct-social { background: var(--navy); color: var(--cream); border-color: var(--gold); }
+
+  @media (max-width: 720px) {
+    .contact-grid { gap: 36px; }
+    .contact-grid h2.century { font-size: 38px !important; }
+    .field input, .field select, .field textarea { padding: 12px 14px; font-size: 16px; }
+    .direct-card { padding: 22px 22px; }
+    .direct-value { font-size: 20px; }
+    .direct-social > div { flex-wrap: wrap; }
+    .direct-social .btn { padding: 8px 12px; font-size: 11px; }
+  }
 </style>
 
 <script>

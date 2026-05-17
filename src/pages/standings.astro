@@ -131,4 +131,14 @@ const sortedC = [...CLASS_C].sort((a, b) => b.pct - a.pct || b.w - a.w);
     font-family: var(--font-display); font-size: 16px; font-weight: 400;
     letter-spacing: 0.04em; text-transform: uppercase;
   }
+
+  @media (max-width: 720px) {
+    .stand-head { padding-bottom: 10px; margin-bottom: 16px; gap: 12px; }
+    .stand-head h2 { font-size: 38px !important; }
+    .stand-meta { font-size: 10px; }
+    .table { font-size: 12px; }
+    .table thead th { padding: 10px 8px; font-size: 11px; letter-spacing: 0.08em; }
+    .table tbody td { padding: 10px 8px; }
+    .team-hawks { font-size: 13px; }
+  }
 </style>

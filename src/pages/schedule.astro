@@ -237,6 +237,41 @@ for (const g of SCHEDULE_2026) {
     font-size: 15px; line-height: 1.35;
   }
   .snap-list strong { font-style: normal; }
+
+  @media (max-width: 720px) {
+    .sched-hero-grid { gap: 24px; }
+    .sched-legend { font-size: 10px; gap: 8px; padding-bottom: 0; }
+    .sched-filters { gap: 6px; margin-bottom: 22px; }
+    .sched-btn { padding: 7px 10px; font-size: 11px; letter-spacing: 0.1em; }
+    .sched-month-head { padding-bottom: 8px; margin-bottom: 12px; }
+    .sched-month-head h2 { font-size: 42px !important; }
+    .game-row {
+      grid-template-columns: 64px 1fr;
+      gap: 16px;
+      padding: 18px 16px 18px 22px;
+      align-items: start;
+    }
+    .game-row > .game-time-col {
+      grid-column: 1 / -1;
+      text-align: left;
+      border-top: 1px dashed var(--rule);
+      padding-top: 12px;
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .game-row > .game-time-col .game-link { margin-top: 0; }
+    .gd-num { font-size: 32px; }
+    .gd-day, .gd-mon { font-size: 10px; }
+    .game-tags { gap: 8px; margin-bottom: 4px; }
+    .game-loc { font-size: 9px; letter-spacing: 0.18em; }
+    .game-matchup { font-size: 18px; line-height: 1.2; }
+    .game-special { font-size: 12px; margin-top: 6px; }
+    .sched-sidebar { position: static; }
+    .snap-grid { gap: 12px; margin-top: 18px; }
+    .snap-grid .century { font-size: 36px !important; }
+  }
 </style>
 
 <script>

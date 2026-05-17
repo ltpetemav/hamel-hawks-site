@@ -135,4 +135,17 @@ import { PRODUCTS } from '../data/shop.ts';
     border-top: 1px solid var(--rule);
   }
   .product-price { font-family: var(--font-display); font-size: 24px; color: var(--navy); }
+
+  @media (max-width: 720px) {
+    .shop-head h2 { font-size: 44px !important; }
+    .shop-meta { font-size: 10px; }
+    .shop-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .product-info { padding: 14px 14px 16px; }
+    .product-name { font-size: 16px; }
+    .product-desc { font-size: 12px; min-height: 30px; }
+    .pg-100 { font-size: 64px; }
+    .pg-name { font-size: 11px; }
+    .product-tag { font-size: 9px; top: 8px; right: 8px; }
+    .product-limited { font-size: 8px; top: 8px; left: 8px; }
+  }
 </style>

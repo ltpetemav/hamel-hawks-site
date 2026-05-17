@@ -175,6 +175,15 @@ import { HITTING, PITCHING, fmt3 } from '../data/stats.ts';
     margin-top: 6px;
   }
   .stat-table th { cursor: pointer; user-select: none; }
+
+  @media (max-width: 720px) {
+    .leaders-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .leader-card { padding: 22px 18px; }
+    .leader-value { font-size: 56px !important; }
+    .leader-name { font-size: 17px; }
+    .leader-cat { font-size: 10px; }
+    .leader-pos { font-size: 10px; }
+  }
 </style>
 
 <script>

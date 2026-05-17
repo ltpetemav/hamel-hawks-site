@@ -748,6 +748,45 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
     font-family: var(--font-display); font-size: 12px;
     letter-spacing: 0.18em; color: var(--accent);
   }
+
+  @media (max-width: 720px) {
+    #century-monogram { max-width: 320px; }
+    .next-game-card { padding: 16px 18px; }
+    .ng-grid { gap: 14px; grid-template-columns: auto 1fr; }
+    .ng-grid > a { grid-column: 1 / -1; justify-self: end; }
+    .ng-matchup { font-size: 18px; }
+    .ng-meta { font-size: 11px; }
+    .stat-strip { gap: 16px; padding: 24px 0; margin-top: 28px; }
+    .stat-strip .century { font-size: 40px !important; }
+    .stat-label { font-size: 10px; letter-spacing: 0.16em; }
+    .banner-year { font-size: 36px; }
+    .banner-cat { font-size: 9px; }
+    .banner-tag { font-size: 11px; }
+    .video-block { margin-bottom: 50px; }
+    .video-title { font-size: 19px; }
+    .timeline-row { grid-template-columns: 44px 1fr !important; }
+    .tl-right { padding: 16px 0 38px 18px !important; }
+    .tl-card { padding: 22px 24px; }
+    .tl-title { font-size: 22px !important; }
+    .tl-body { font-size: 14px; }
+    .tl-quote { font-size: 14px; padding-left: 12px; margin-top: 14px; }
+    .tl-chip { font-size: 12px; padding: 6px 8px; min-width: 50px; margin-top: 24px; }
+    .figures-grid { gap: 12px; }
+    .figure-card { padding: 22px 22px 20px; min-height: 0; }
+    .figure-name { font-size: 20px; }
+    .figure-body { font-size: 13px; line-height: 1.5; }
+    .up-head { margin-bottom: 30px; gap: 12px; }
+    .upcoming-grid { gap: 14px; }
+    .game-card { padding: 22px 22px 20px; }
+    .gc-num { font-size: 36px; }
+    .gc-matchup { font-size: 19px; }
+    .field-copy { padding: 60px 18px; }
+    .field-photo { min-height: 320px; }
+    .field-stats { gap: 12px; margin-top: 36px; padding-top: 22px; }
+    .field-stats .century { font-size: 32px !important; }
+    .sw-tile { padding: 30px 22px; min-height: 160px; }
+    .sw-name { font-size: 18px; }
+  }
 </style>
 
 <script>
