@@ -1,64 +1,44 @@
 ---
 import Base from '../layouts/Base.astro';
-import { FEATURE, STORIES } from '../data/news.ts';
+import { RECENT_HEADLINES } from '../data/news.ts';
 ---
 <Base title="News · Hamel Hawks" page="news">
   <section class="section section-dark page-hero" style="padding: 70px 0 50px; border-bottom: 1px solid rgba(201,163,91,0.3);">
     <div class="wrap">
       <div class="news-hero">
         <div>
-          <div class="eyebrow" style="color: var(--gold);">The Hamel Dispatch · Vol. 100 · Iss. 1</div>
+          <div class="eyebrow" style="color: var(--gold);">The Hamel Dispatch</div>
           <h1 class="display" style="color: var(--cream); margin-top: 18px;">News &amp; Notes.</h1>
         </div>
-        <div class="news-hero-stamp">Updated May 16, 2026 · 9:30 AM CDT</div>
+        <div class="news-hero-stamp">Full coverage at hamelhawks.com</div>
       </div>
     </div>
   </section>
 
   <section class="section" style="padding: 0; background: var(--cream-soft);">
     <div class="wrap" style="padding-top: 60px; padding-bottom: 100px;">
-      <article class="news-feature">
-        <div>
-          <div class="news-kicker">{FEATURE.kicker} · {FEATURE.date}</div>
-          <h2 class="headline news-feature-title">{FEATURE.title}</h2>
-          <p class="news-dek">{FEATURE.dek}</p>
-          <div class="news-byline">{FEATURE.byline}</div>
-          <div class="news-body">
-            {FEATURE.body.map((p, i) => (
-              <p class="news-body-p" style={i === 0 ? 'font-size: 19px;' : ''}>
-                {i === 0 && <span class="news-dropcap">{p[0]}</span>}
-                {i === 0 ? p.slice(1) : p}
-              </p>
-            ))}
-          </div>
-          <div class="news-cta-bar">
-            <span style="font-family: var(--font-serif); font-style: italic; font-size: 18px;">See you at the park, Hamel.</span>
-            <a href="/schedule" style="font-family: var(--font-display); font-size: 13px; letter-spacing: 0.18em; color: var(--gold);">Full Schedule →</a>
-          </div>
-        </div>
-        <aside class="news-photo">
-          <div class="news-photo-frame">
-            <img src="/assets/field-drone.avif" alt="Fortin Field" />
-          </div>
-          <div class="news-photo-caption">★ Photo · 2026 Centennial Opener</div>
-        </aside>
-      </article>
+      <div class="news-intro">
+        <p class="news-intro-p">
+          Game recaps, roster news, and season-long coverage live on the
+          official Hawks site. The centennial site here keeps the story-side
+          of the program — history, the field, the centennial weekend.
+          For the week-to-week, head over.
+        </p>
+        <a href="https://www.hamelhawks.com/news" target="_blank" rel="noopener" class="btn btn-primary news-cta">
+          Read on hamelhawks.com →
+        </a>
+      </div>
 
-      <div class="news-more">
-        <div class="news-more-head">
-          <h3 class="news-more-title">MORE NOTES</h3>
-          <span class="news-more-meta">This week · {STORIES.length} stories</span>
+      <div class="news-recent">
+        <div class="news-recent-head">
+          <h3 class="news-recent-title">RECENT HEADLINES</h3>
+          <span class="news-recent-meta">Pulled from hamelhawks.com/news</span>
         </div>
         <div>
-          {STORIES.map((s) => (
-            <a href="#" class="story-row">
-              <span class="story-tag">{s.tag}</span>
-              <span class="story-date">{s.date}</span>
-              <div>
-                <div class="story-title">{s.title}</div>
-                <p class="story-dek">{s.dek}</p>
-              </div>
-              <span class="story-arrow">Read →</span>
+          {RECENT_HEADLINES.map((h) => (
+            <a href={h.href} target="_blank" rel="noopener" class="hl-row">
+              <div class="hl-title">{h.title}</div>
+              <span class="hl-arrow">Read →</span>
             </a>
           ))}
         </div>
@@ -76,125 +56,55 @@ import { FEATURE, STORIES } from '../data/news.ts';
     font-family: var(--font-mono); font-size: 11px;
     letter-spacing: 0.22em; color: rgba(241,230,204,0.6); text-transform: uppercase;
   }
-  .news-feature {
-    display: grid; grid-template-columns: 1.4fr 1fr;
-    gap: 60px; align-items: start;
+  .news-intro {
+    background: var(--cream); border: 1px solid var(--rule);
+    padding: 36px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 30px; flex-wrap: wrap;
   }
-  @media (max-width: 880px) { .news-feature { grid-template-columns: 1fr; gap: 40px; } }
-  .news-kicker {
-    font-family: var(--font-mono); font-size: 11px;
-    letter-spacing: 0.24em; color: var(--accent);
-    text-transform: uppercase; margin-bottom: 14px;
+  .news-intro-p {
+    font-family: var(--font-serif); font-size: 18px;
+    line-height: 1.55; color: var(--ink-soft); max-width: 60ch;
   }
-  .news-feature-title {
-    font-size: clamp(36px, 4vw, 56px);
-    margin-bottom: 18px; font-style: normal;
-  }
-  .news-dek {
-    font-family: var(--font-serif); font-style: italic;
-    font-size: 22px; line-height: 1.4;
-    color: var(--ink-soft); margin-bottom: 24px;
-  }
-  .news-byline {
-    font-family: var(--font-mono); font-size: 11px;
-    letter-spacing: 0.22em; color: var(--fg-muted);
-    text-transform: uppercase; margin-bottom: 24px;
-  }
-  .news-body { border-top: 1px solid var(--rule); padding-top: 24px; }
-  .news-body-p { font-size: 18px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 18px; }
-  .news-dropcap {
-    font-family: var(--font-display); font-size: 64px;
-    line-height: 0.85; float: left;
-    margin-right: 10px; margin-top: 4px;
-    color: var(--accent);
-  }
-  .news-cta-bar {
-    margin-top: 28px; padding: 20px 24px;
-    background: var(--navy); color: var(--cream);
-    display: flex; justify-content: space-between;
-    align-items: center; flex-wrap: wrap; gap: 12px;
-  }
-  .news-photo-frame {
-    width: 100%; aspect-ratio: 4 / 5;
-    overflow: hidden; background: var(--navy-deep);
-    border: 1px solid var(--rule);
-  }
-  .news-photo-frame img { width: 100%; height: 100%; object-fit: cover; }
-  .news-photo-caption {
-    font-family: var(--font-mono); font-size: 10px;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--fg-muted); margin-top: 10px;
-  }
-  .news-more {
-    margin-top: 80px; padding-top: 30px;
+  .news-cta { flex-shrink: 0; }
+  .news-recent {
+    margin-top: 60px; padding-top: 30px;
     border-top: 4px double var(--navy);
   }
-  .news-more-head {
+  .news-recent-head {
     display: flex; justify-content: space-between;
     align-items: end; margin-bottom: 20px;
   }
-  .news-more-title {
-    font-family: var(--font-display); font-size: 32px;
+  .news-recent-title {
+    font-family: var(--font-display); font-size: 28px;
     color: var(--navy); letter-spacing: 0.04em;
   }
-  .news-more-meta {
+  .news-recent-meta {
     font-family: var(--font-mono); font-size: 11px;
     letter-spacing: 0.22em; color: var(--fg-muted); text-transform: uppercase;
   }
-  .story-row {
-    display: grid; grid-template-columns: 90px 100px 1fr auto;
-    gap: 24px; padding: 24px 4px;
+  .hl-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 20px 4px; gap: 20px;
     border-bottom: 1px solid var(--rule);
-    align-items: baseline;
     transition: background 160ms;
   }
-  .story-row:hover { background: rgba(201,163,91,0.08); }
-  .story-tag {
-    font-family: var(--font-mono); font-size: 10px;
-    letter-spacing: 0.22em; padding: 4px 8px;
-    text-transform: uppercase;
-    background: var(--navy); color: var(--cream);
-    justify-self: start;
-  }
-  .story-date {
-    font-family: var(--font-mono); font-size: 12px;
-    letter-spacing: 0.16em; color: var(--fg-muted); text-transform: uppercase;
-  }
-  .story-title {
+  .hl-row:hover { background: rgba(201,163,91,0.08); }
+  .hl-title {
     font-family: var(--font-serif); font-style: italic;
-    font-size: 24px; line-height: 1.2; color: var(--navy);
+    font-size: 22px; line-height: 1.25; color: var(--navy);
   }
-  .story-dek { margin-top: 6px; font-size: 14px; color: var(--fg-muted); line-height: 1.5; }
-  .story-arrow {
+  .hl-arrow {
     font-family: var(--font-display); font-size: 12px;
-    letter-spacing: 0.18em; color: var(--accent);
+    letter-spacing: 0.18em; color: var(--accent); flex-shrink: 0;
   }
 
   @media (max-width: 720px) {
-    .news-feature { gap: 32px; }
-    .news-feature-title { font-size: clamp(28px, 8vw, 38px); margin-bottom: 14px; }
-    .news-dek { font-size: 17px; margin-bottom: 18px; }
-    .news-body-p { font-size: 16px; line-height: 1.6; }
-    .news-body-p:first-child { font-size: 16px !important; }
-    .news-dropcap { font-size: 48px; }
-    .news-cta-bar { padding: 14px 18px; }
-    .news-cta-bar > span { font-size: 16px; }
-    .news-more { margin-top: 50px; }
-    .news-more-head { flex-wrap: wrap; gap: 8px; align-items: baseline; }
-    .news-more-title { font-size: 22px; }
-    .story-row {
-      grid-template-columns: auto auto;
-      gap: 10px 14px;
-      padding: 16px 4px;
-    }
-    .story-row > div { grid-column: 1 / -1; order: 3; }
-    .story-row > .story-arrow {
-      grid-column: 1 / -1; order: 4;
-      justify-self: end;
-    }
-    .story-tag { font-size: 9px; padding: 3px 7px; letter-spacing: 0.18em; }
-    .story-date { font-size: 11px; letter-spacing: 0.14em; }
-    .story-title { font-size: 19px; }
-    .story-dek { font-size: 13px; margin-top: 4px; }
+    .news-intro { padding: 24px 22px; gap: 20px; }
+    .news-intro-p { font-size: 16px; }
+    .news-recent-head { flex-wrap: wrap; gap: 8px; }
+    .news-recent-title { font-size: 22px; }
+    .hl-row { padding: 14px 4px; gap: 12px; flex-direction: column; align-items: flex-start; }
+    .hl-title { font-size: 18px; }
   }
 </style>

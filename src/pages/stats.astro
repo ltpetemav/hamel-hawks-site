@@ -1,16 +1,54 @@
 ---
 import Base from '../layouts/Base.astro';
 import { HITTING, PITCHING, fmt3 } from '../data/stats.ts';
+import { ROSTER } from '../data/roster.ts';
+
+const numByName = new Map(ROSTER.map((p) => [p.name, p.no]));
+const posByName = new Map(ROSTER.map((p) => [p.name, p.pos]));
+
+function findNum(name: string) {
+  return numByName.get(name);
+}
+function findPos(name: string) {
+  return posByName.get(name) ?? '';
+}
+
+const gamesPlayed = Math.max(0, ...HITTING.map((h) => h.g));
+
+const hittersWithABs = HITTING.filter((h) => h.ab > 0);
+const avgLeader = hittersWithABs.length
+  ? hittersWithABs.reduce((a, b) => (b.avg > a.avg ? b : a))
+  : null;
+const hrLeader = hittersWithABs.length
+  ? hittersWithABs.reduce((a, b) => (b.hr > a.hr ? b : a))
+  : null;
+const rbiLeader = hittersWithABs.length
+  ? hittersWithABs.reduce((a, b) => (b.rbi > a.rbi ? b : a))
+  : null;
+
+const pitchersWithIp = PITCHING.filter((p) => p.ip > 0);
+const kLeader = pitchersWithIp.length
+  ? pitchersWithIp.reduce((a, b) => (b.k > a.k ? b : a))
+  : null;
+const eraLeader = pitchersWithIp.length
+  ? pitchersWithIp.reduce((a, b) => (b.era < a.era ? b : a))
+  : null;
+
+const pretty = {
+  avg: (n: number | undefined) => (n === undefined || n === 0 ? '—' : fmt3(n)),
+  era: (n: number | undefined) => (n === undefined || n === 0 ? '—' : n.toFixed(2)),
+};
 ---
 <Base title="Stats · Hamel Hawks 2026" page="stats">
   <section class="section section-dark page-hero" style="padding: 80px 0 60px;">
     <div class="wrap">
-      <div class="eyebrow" style="color: var(--gold);">2026 Statistics · Through May</div>
+      <div class="eyebrow" style="color: var(--gold);">2026 Statistics · {gamesPlayed} game{gamesPlayed === 1 ? '' : 's'} played</div>
       <h1 class="display" style="color: var(--cream); margin-top: 18px;">
         The <span style="color: var(--gold); font-style: italic; font-family: var(--font-serif); font-weight: 500; text-transform: none; letter-spacing: -0.01em;">Numbers.</span>
       </h1>
       <p class="lede" style="margin-top: 24px; max-width: 65ch;">
-        Click any column header to sort. Hawks are 11–3 across both classes through the first 14 games.
+        Season just opened. {HITTING.length} hitters and {PITCHING.length} pitchers have appeared so far —
+        sample sizes will grow with the schedule. Click any column header to sort.
       </p>
     </div>
   </section>
@@ -22,38 +60,38 @@ import { HITTING, PITCHING, fmt3 } from '../data/stats.ts';
       <div class="leaders-grid">
         <div class="leader-card">
           <div class="leader-cat">Avg</div>
-          <div class="leader-value-row"><span class="century leader-value">.404</span></div>
+          <div class="leader-value-row"><span class="century leader-value">{avgLeader ? pretty.avg(avgLeader.avg) : '—'}</span></div>
           <div class="divider leader-divider"></div>
-          <div class="leader-name">Jack O'Brien</div>
-          <div class="leader-pos">CF · #3</div>
+          <div class="leader-name">{avgLeader?.name ?? 'TBD'}</div>
+          <div class="leader-pos">{avgLeader ? `${avgLeader.pos}${findNum(avgLeader.name) !== undefined ? ` · #${findNum(avgLeader.name)}` : ''}` : ''}</div>
         </div>
         <div class="leader-card">
           <div class="leader-cat">Home Runs</div>
-          <div class="leader-value-row"><span class="century leader-value">5</span></div>
+          <div class="leader-value-row"><span class="century leader-value">{hrLeader && hrLeader.hr > 0 ? hrLeader.hr : '—'}</span></div>
           <div class="divider leader-divider"></div>
-          <div class="leader-name">Sam Larsson</div>
-          <div class="leader-pos">1B · #10</div>
+          <div class="leader-name">{hrLeader && hrLeader.hr > 0 ? hrLeader.name : 'TBD'}</div>
+          <div class="leader-pos">{hrLeader && hrLeader.hr > 0 ? `${hrLeader.pos}${findNum(hrLeader.name) !== undefined ? ` · #${findNum(hrLeader.name)}` : ''}` : ''}</div>
         </div>
         <div class="leader-card">
           <div class="leader-cat">RBI</div>
-          <div class="leader-value-row"><span class="century leader-value">19</span></div>
+          <div class="leader-value-row"><span class="century leader-value">{rbiLeader && rbiLeader.rbi > 0 ? rbiLeader.rbi : '—'}</span></div>
           <div class="divider leader-divider"></div>
-          <div class="leader-name">Sam Larsson</div>
-          <div class="leader-pos">1B · #10</div>
+          <div class="leader-name">{rbiLeader && rbiLeader.rbi > 0 ? rbiLeader.name : 'TBD'}</div>
+          <div class="leader-pos">{rbiLeader && rbiLeader.rbi > 0 ? `${rbiLeader.pos}${findNum(rbiLeader.name) !== undefined ? ` · #${findNum(rbiLeader.name)}` : ''}` : ''}</div>
         </div>
         <div class="leader-card">
           <div class="leader-cat">Strikeouts</div>
-          <div class="leader-value-row"><span class="century leader-value">41</span></div>
+          <div class="leader-value-row"><span class="century leader-value">{kLeader && kLeader.k > 0 ? kLeader.k : '—'}</span></div>
           <div class="divider leader-divider"></div>
-          <div class="leader-name">Will Ahlberg</div>
-          <div class="leader-pos">P · #24</div>
+          <div class="leader-name">{kLeader && kLeader.k > 0 ? kLeader.name : 'TBD'}</div>
+          <div class="leader-pos">{kLeader && kLeader.k > 0 ? `${findPos(kLeader.name) || 'P'}${findNum(kLeader.name) !== undefined ? ` · #${findNum(kLeader.name)}` : ''}` : ''}</div>
         </div>
         <div class="leader-card">
           <div class="leader-cat">ERA</div>
-          <div class="leader-value-row"><span class="century leader-value">2.23</span></div>
+          <div class="leader-value-row"><span class="century leader-value">{eraLeader ? pretty.era(eraLeader.era) : '—'}</span></div>
           <div class="divider leader-divider"></div>
-          <div class="leader-name">Will Ahlberg</div>
-          <div class="leader-pos">P · #24</div>
+          <div class="leader-name">{eraLeader?.name ?? 'TBD'}</div>
+          <div class="leader-pos">{eraLeader ? `${findPos(eraLeader.name) || 'P'}${findNum(eraLeader.name) !== undefined ? ` · #${findNum(eraLeader.name)}` : ''}` : ''}</div>
         </div>
       </div>
     </div>
