@@ -183,6 +183,8 @@ function group(p: string) {
     border: 1px solid var(--gold);
     padding: 24px;
     display: flex; flex-direction: column; gap: 16px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .ros-back-meta { font-family: var(--font-display); font-size: 14px; letter-spacing: 0.2em; color: var(--accent); }
   .ros-back-name { font-family: var(--font-serif); font-style: italic; font-size: 22px; line-height: 1.1; }
@@ -220,11 +222,20 @@ function group(p: string) {
     .ros-btn { padding: 6px 10px; font-size: 11px; }
     .ros-count { width: 100%; margin-left: 0; margin-top: 4px; font-size: 10px; }
     .ros-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    /* let cards grow taller on mobile — front is fixed at 4:3, back can stretch */
+    .ros-card { aspect-ratio: auto; height: 280px; }
     .ros-num { font-size: 40px; top: 10px; right: 12px; }
     .ros-portrait { margin: 48px 12px 12px; }
     .ros-name-plate { padding: 10px 12px 14px; }
     .ros-name { font-size: 16px; letter-spacing: 0.02em; }
     .ros-pos { font-size: 9px; }
+    /* tighter back face — all info fits without scrolling */
+    .ros-back { padding: 16px 14px; gap: 10px; }
+    .ros-back-meta { font-size: 12px; letter-spacing: 0.16em; }
+    .ros-back-name { font-size: 18px; line-height: 1.1; }
+    .ros-detail-grid { gap: 8px; font-size: 12px; }
+    .ros-detail-label { font-size: 9px; letter-spacing: 0.14em; }
+    .ros-returning { padding: 6px 10px; font-size: 9px; letter-spacing: 0.18em; }
     .coach-name { font-size: 22px; }
     .coach-note { font-size: 14px; }
   }
