@@ -369,10 +369,10 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
   </section>
 
   <!-- ================== JOIN ================== -->
-  <section class="section section-dark" data-screen-label="07 Join" style="background: var(--navy-deep); text-align: center;">
+  <section class="section section-dark join-cta" data-screen-label="07 Join" style="background: var(--navy-deep); text-align: center;">
     <div class="wrap" style="max-width: 920px;">
-      <div class="century" style="font-size: clamp(120px, 18vw, 240px); color: var(--gold); text-align: center; letter-spacing: -0.06em;">100</div>
-      <h2 class="headline" style="color: var(--cream); margin-top: -20px;">
+      <div class="century join-100">100</div>
+      <h2 class="headline join-headline" style="color: var(--cream);">
         The next chapter <em>starts at the gates.</em>
       </h2>
       <p class="lede" style="margin: 30px auto 38px;">
@@ -750,6 +750,17 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
     letter-spacing: 0.18em; color: var(--accent);
   }
 
+  /* Centennial-100 CTA section — desktop overlaps the headline under the
+     giant 100 by design; mobile gives them proper vertical separation. */
+  .join-100 {
+    font-size: clamp(120px, 18vw, 240px);
+    color: var(--gold);
+    text-align: center;
+    letter-spacing: -0.06em;
+    line-height: 0.85;
+  }
+  .join-headline { margin-top: -20px; }
+
   @media (max-width: 720px) {
     #century-monogram { max-width: 320px; }
     .next-game-card { padding: 16px 18px; }
@@ -790,6 +801,10 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
     .field-stats .century { font-size: 32px !important; }
     .sw-tile { padding: 30px 22px; min-height: 160px; }
     .sw-name { font-size: 18px; }
+    /* Mobile: shrink the 100, drop the negative margin so it stops
+       colliding with "The next chapter starts at the gates." */
+    .join-100 { font-size: clamp(90px, 26vw, 140px); }
+    .join-headline { margin-top: 8px; }
   }
 </style>
 

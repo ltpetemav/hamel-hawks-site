@@ -63,10 +63,10 @@ import { PREMIER, SUPPORTING } from '../data/sponsors.ts';
     </div>
   </section>
 
-  <section class="section section-deep" style="text-align: center;">
+  <section class="section section-deep sponsor-cta" style="text-align: center;">
     <div class="wrap" style="max-width: 800px;">
-      <div class="century" style="font-size: 140px; color: var(--gold); letter-spacing: -0.06em;">100</div>
-      <h2 class="headline" style="color: var(--cream); margin-top: -10px;">
+      <div class="century sponsor-100">100</div>
+      <h2 class="headline sponsor-headline" style="color: var(--cream);">
         Be part of the <em>next chapter.</em>
       </h2>
       <p class="lede" style="margin: 24px auto 32px;">
@@ -144,6 +144,14 @@ import { PREMIER, SUPPORTING } from '../data/sponsors.ts';
     letter-spacing: 0.18em; color: var(--accent);
   }
 
+  .sponsor-100 {
+    font-size: clamp(96px, 14vw, 140px);
+    color: var(--gold);
+    letter-spacing: -0.06em;
+    line-height: 0.85;
+  }
+  .sponsor-headline { margin-top: -10px; }
+
   @media (max-width: 720px) {
     .spon-hero-grid { gap: 22px; }
     .spon-hero-grid > div:nth-child(2) { padding-bottom: 0; }
@@ -155,5 +163,7 @@ import { PREMIER, SUPPORTING } from '../data/sponsors.ts';
     .support-card { padding: 24px 22px; min-height: 0; }
     .support-name { font-size: 20px; }
     .support-desc { font-size: 13px; }
+    .sponsor-100 { font-size: clamp(80px, 22vw, 120px); }
+    .sponsor-headline { margin-top: 8px; }
   }
 </style>
