@@ -2,22 +2,31 @@
 import Base from '../layouts/Base.astro';
 import { DECADES, FIGURES } from '../data/decades.ts';
 import { SPONSOR_WALL_PREMIER, SPONSOR_WALL_SUPPORTING } from '../data/sponsors.ts';
+import { SCHEDULE_2026, fmtMonth, fmtDay } from '../data/schedule.ts';
 
-const upcoming = [
-  { date: 'Jun 26', day: 'Fri', time: '7:30 PM', opp: 'Loretto Larks', home: true, tag: '★ Centennial Weekend', note: '100-Year Celebration · Night 1' },
-  { date: 'Jun 27', day: 'Sat', time: '5:00 PM', opp: 'Hawks Alumni', home: true, tag: 'Exhibition', note: 'Old-Timers Game · Centennial' },
-  { date: 'Jun 28', day: 'Sun', time: '2:00 PM', opp: 'Loretto Larks', home: true, tag: '★ 100 Year Game', note: 'Official Anniversary Game · MBA designated' },
-  { date: 'Jul 04', day: 'Sat', time: '1:00 PM', opp: 'Maple Plain Lakers', home: true, tag: 'Class B', note: 'Independence Day' },
-];
+const today = new Date();
+const futureGames = SCHEDULE_2026.filter((g) => new Date(g.date) >= today && g.time !== 'TBD');
+const nextGame = futureGames[0] ?? SCHEDULE_2026[SCHEDULE_2026.length - 1];
 
 const next = {
-  date: 'Fri, May 22',
-  time: '7:30 PM',
-  opponent: 'Maple Plain Lakers',
-  home: true,
-  league: 'Class B · NSL',
-  note: 'Centennial Season Opener',
+  date: `${nextGame.day}, ${fmtMonth(nextGame.date)} ${fmtDay(nextGame.date)}`,
+  time: nextGame.time,
+  opponent: nextGame.opp,
+  home: nextGame.home,
+  league: nextGame.cls === 'B' ? 'Class B · NSL' : nextGame.cls === 'C' ? 'Class C · NSL' : 'Exhibition',
+  note: nextGame.special || (nextGame.home ? 'Home · Fortin Field' : `Away · ${nextGame.fieldName ?? nextGame.opp}`),
 };
+
+// Next 4 games on the home page "Upcoming" section
+const upcoming = futureGames.slice(0, 4).map((g) => ({
+  date: `${fmtMonth(g.date).charAt(0) + fmtMonth(g.date).slice(1).toLowerCase()} ${fmtDay(g.date)}`,
+  day: g.day,
+  time: g.time,
+  opp: g.opp,
+  home: g.home,
+  tag: g.special ? '★ Centennial' : g.cls === 'B' ? 'Class B' : g.cls === 'C' ? 'Class C' : 'Exhibition',
+  note: g.special || (g.home ? 'Fortin Field' : g.fieldName ?? 'Away'),
+}));
 
 const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
 ---

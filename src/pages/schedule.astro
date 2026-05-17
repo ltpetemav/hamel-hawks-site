@@ -2,9 +2,14 @@
 import Base from '../layouts/Base.astro';
 import { SCHEDULE_2026, fmtMonth, fmtDay } from '../data/schedule.ts';
 
-const today = new Date('2026-05-15');
+const today = new Date();
 const homeCount = SCHEDULE_2026.filter((g) => g.home).length;
+const awayCount = SCHEDULE_2026.length - homeCount;
 const classB = SCHEDULE_2026.filter((g) => g.cls === 'B').length;
+const classC = SCHEDULE_2026.filter((g) => g.cls === 'C').length;
+const exhibitions = SCHEDULE_2026.filter((g) => g.cls === 'X' && g.time !== 'TBD').length;
+const postseason = SCHEDULE_2026.filter((g) => g.time === 'TBD').length;
+const specialEvents = SCHEDULE_2026.filter((g) => g.special);
 
 // Group games by month preserving order
 const grouped: Record<string, typeof SCHEDULE_2026> = {};
@@ -12,6 +17,12 @@ for (const g of SCHEDULE_2026) {
   const m = fmtMonth(g.date);
   if (!grouped[m]) grouped[m] = [];
   grouped[m].push(g);
+}
+
+function clsLabel(c: 'B' | 'C' | 'X') {
+  if (c === 'B') return '★ Class B';
+  if (c === 'C') return '✦ Class C';
+  return '◆ Exhibition';
 }
 ---
 <Base title="2026 Schedule · Hamel Hawks Centennial Season" page="schedule">
@@ -25,8 +36,9 @@ for (const g of SCHEDULE_2026) {
             <span style="color: var(--gold); font-style: italic; font-family: var(--font-serif); font-weight: 500; text-transform: none; letter-spacing: -0.01em;">Schedule.</span>
           </h1>
           <p class="lede" style="margin-top: 24px;">
-            A century in. Two matchups against every Class B team in the North Star League,
-            and a single Class C tilt against each of our division rivals.
+            A century in. {classB} Class B league games, {classC} Class C league games,
+            {exhibitions} exhibitions, and {postseason} postseason slots.
+            Centennial home game against Loretto on Sunday, June 28.
           </p>
         </div>
         <div class="sched-legend">
@@ -62,7 +74,13 @@ for (const g of SCHEDULE_2026) {
                 <div>
                   {games.map((g, i) => {
                     const isPast = new Date(g.date) < today;
-                    const isClassB = g.cls === 'B';
+                    const stripeCls = g.cls === 'B' ? 'stripe-gold' : g.cls === 'C' ? 'stripe-red' : 'stripe-navy';
+                    const tagCls = g.cls === 'B' ? 'cls-b' : g.cls === 'C' ? 'cls-c' : 'cls-x';
+                    const locText = g.home
+                      ? 'Home · Fortin Field'
+                      : g.fieldName
+                        ? `Away · ${g.fieldName}`
+                        : `Away · ${g.opp.split(' ')[0]}`;
                     return (
                       <div
                         class={`game-row ${isPast ? 'is-past' : ''} ${i % 2 === 0 ? 'is-stripe' : ''}`}
@@ -70,7 +88,7 @@ for (const g of SCHEDULE_2026) {
                         data-cls={g.cls}
                         data-special={g.special ? '1' : '0'}
                       >
-                        <div class={`game-stripe ${isClassB ? 'stripe-gold' : 'stripe-red'}`}></div>
+                        <div class={`game-stripe ${stripeCls}`}></div>
                         <div class="game-date">
                           <div class="gd-day">{g.day.toUpperCase()}</div>
                           <div class="gd-num">{fmtDay(g.date)}</div>
@@ -78,8 +96,8 @@ for (const g of SCHEDULE_2026) {
                         </div>
                         <div class="game-info">
                           <div class="game-tags">
-                            <span class={`game-class ${isClassB ? 'cls-b' : 'cls-c'}`}>{isClassB ? '★ Class B' : '✦ Class C'}</span>
-                            <span class="game-loc">{g.home ? 'Home · Fortin Field' : `Away · ${g.opp.split(' ')[0]}, MN`}</span>
+                            <span class={`game-class ${tagCls}`}>{clsLabel(g.cls)}</span>
+                            <span class="game-loc">{locText}</span>
                           </div>
                           <div class="game-matchup">{g.home ? 'vs.' : 'at'} {g.opp}</div>
                           {g.special && <div class={`game-special ${g.special.includes('★') ? 'is-star' : ''}`}>{g.special}</div>}
@@ -104,19 +122,13 @@ for (const g of SCHEDULE_2026) {
             <div class="snap-grid">
               <div><div class="century" style="font-size: 44px; color: var(--navy);">{SCHEDULE_2026.length}</div><div class="snap-label">Games</div></div>
               <div><div class="century" style="font-size: 44px; color: var(--accent);">{homeCount}</div><div class="snap-label">Home</div></div>
-              <div><div class="century" style="font-size: 44px; color: var(--navy);">{SCHEDULE_2026.length - homeCount}</div><div class="snap-label">Away</div></div>
+              <div><div class="century" style="font-size: 44px; color: var(--navy);">{awayCount}</div><div class="snap-label">Away</div></div>
               <div><div class="century" style="font-size: 44px; color: var(--accent-2);">{classB}</div><div class="snap-label">Class B</div></div>
             </div>
             <div class="divider"></div>
-            <h4 class="snap-h">Special Events</h4>
+            <h4 class="snap-h">Centennial Game</h4>
             <ul class="snap-list">
-              <li>★ <strong>May 22</strong> · Centennial Opener</li>
-              <li>★ <strong>Jun 04</strong> · Throwback Night (1926 jerseys)</li>
-              <li>★ <strong>Jun 11</strong> · Family Fireworks</li>
-              <li>★ <strong>Jun 26–28</strong> · 100-Year Celebration Weekend</li>
-              <li>★ <strong>Jun 27</strong> · Old-Timers Game · Alumni</li>
-              <li>★ ★ ★ <strong>Jun 28</strong> · MBA 100 Year Anniversary Game vs. Loretto</li>
-              <li>★ <strong>Jul 04</strong> · Independence Day</li>
+              <li>★ ★ ★ <strong>Jun 28</strong> · MBA 100 Year Anniversary Game vs. Loretto Larks · 1:00 PM at Fortin Field</li>
             </ul>
             <div class="divider"></div>
             <a href="webcal://api.team-manager.gc.com/ics-calendar-documents/user/a8f29897-b086-44ca-8daa-76afb14ad179.ics" class="btn btn-primary" style="width: 100%; justify-content: center;">+ Sync to Calendar</a>
@@ -189,6 +201,7 @@ for (const g of SCHEDULE_2026) {
   .game-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
   .stripe-gold { background: var(--gold); }
   .stripe-red { background: var(--red); }
+  .stripe-navy { background: var(--navy); opacity: 0.4; }
   .game-date { text-align: center; }
   .gd-day { font-family: var(--font-display); font-size: 12px; color: var(--accent); letter-spacing: 0.2em; }
   .gd-num { font-family: var(--font-display); font-size: 44px; color: var(--navy); line-height: 1; letter-spacing: -0.02em; }
@@ -201,6 +214,7 @@ for (const g of SCHEDULE_2026) {
   }
   .cls-b { background: var(--gold); color: var(--navy-deep); }
   .cls-c { background: var(--red); color: var(--cream); }
+  .cls-x { background: var(--navy); color: var(--cream); opacity: 0.7; }
   .game-loc {
     font-family: var(--font-mono); font-size: 10px;
     letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-muted);
