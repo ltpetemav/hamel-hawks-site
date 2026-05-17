@@ -204,7 +204,7 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
 
       <div class="timeline-container">
         {DECADES.map((d, i) => {
-          const left = i % 2 === 0;
+          const side = i % 2 === 0 ? 'left' : 'right';
           const chipClass = d.isFinale || d.isPeak ? 'chip-gold' : d.isChampionship ? 'chip-red' : 'chip-default';
           const cardClass = [
             'tl-card',
@@ -214,42 +214,24 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
             d.isDark ? 'tl-card-dark' : '',
           ].filter(Boolean).join(' ');
           return (
-            <div class="timeline-row" data-visible="false">
-              <div class="tl-left">
-                {left && (
-                  <div class={cardClass}>
-                    <div class="tl-meta">{d.years} · {d.accent}</div>
-                    <h3 class="tl-title">{d.title}</h3>
-                    <p class="tl-body">{d.body}</p>
-                    {d.quote && (
-                      <blockquote class="tl-quote">
-                        {d.quote}
-                        {d.quoteAttr && <div class="tl-quote-attr">— {d.quoteAttr}</div>}
-                      </blockquote>
-                    )}
-                    {d.isFinale && <div class="tl-here">★ You are here</div>}
-                  </div>
-                )}
-              </div>
+            <div class="timeline-row" data-side={side} data-visible="false">
               <div class="tl-spine">
                 <div class="tl-line"></div>
                 <div class={`tl-chip ${chipClass}`}>{d.decade}</div>
               </div>
-              <div class="tl-right">
-                {!left && (
-                  <div class={cardClass}>
-                    <div class="tl-meta">{d.years} · {d.accent}</div>
-                    <h3 class="tl-title">{d.title}</h3>
-                    <p class="tl-body">{d.body}</p>
-                    {d.quote && (
-                      <blockquote class="tl-quote">
-                        {d.quote}
-                        {d.quoteAttr && <div class="tl-quote-attr">— {d.quoteAttr}</div>}
-                      </blockquote>
-                    )}
-                    {d.isFinale && <div class="tl-here">★ You are here</div>}
-                  </div>
-                )}
+              <div class="tl-card-wrap">
+                <div class={cardClass}>
+                  <div class="tl-meta">{d.years} · {d.accent}</div>
+                  <h3 class="tl-title">{d.title}</h3>
+                  <p class="tl-body">{d.body}</p>
+                  {d.quote && (
+                    <blockquote class="tl-quote">
+                      {d.quote}
+                      {d.quoteAttr && <div class="tl-quote-attr">— {d.quoteAttr}</div>}
+                    </blockquote>
+                  )}
+                  {d.isFinale && <div class="tl-here">★ You are here</div>}
+                </div>
               </div>
             </div>
           );
@@ -535,14 +517,17 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
   /* Timeline */
   .timeline-container { width: 100%; }
   .timeline-row {
-    display: grid; grid-template-columns: 1fr 120px 1fr;
+    display: grid;
+    grid-template-columns: 1fr 120px 1fr;
     gap: 0; align-items: start;
     opacity: 0; transform: translateY(40px);
     transition: opacity 800ms ease-out, transform 800ms ease-out;
   }
   .timeline-row[data-visible="true"] { opacity: 1; transform: none; }
-  .tl-left { padding: 40px 40px 80px 0; text-align: right; }
-  .tl-right { padding: 40px 0 80px 40px; }
+  .timeline-row .tl-spine { grid-column: 2; }
+  .timeline-row[data-side="left"]  .tl-card-wrap { grid-column: 1; grid-row: 1; text-align: right; padding: 40px 40px 80px 0; }
+  .timeline-row[data-side="right"] .tl-card-wrap { grid-column: 3; grid-row: 1; text-align: left; padding: 40px 0 80px 40px; }
+  .tl-card-wrap { min-width: 0; }
   .tl-spine { position: relative; display: flex; justify-content: center; }
   .tl-line {
     position: absolute; top: 0; bottom: 0; width: 1px;
@@ -605,8 +590,13 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
   }
   @media (max-width: 820px) {
     .timeline-row { grid-template-columns: 60px 1fr; }
-    .tl-left { display: none; }
-    .tl-right { padding: 20px 0 50px 28px; }
+    .timeline-row .tl-spine { grid-column: 1; }
+    .timeline-row[data-side="left"] .tl-card-wrap,
+    .timeline-row[data-side="right"] .tl-card-wrap {
+      grid-column: 2;
+      text-align: left;
+      padding: 20px 0 50px 28px;
+    }
   }
 
   /* Figures */
@@ -765,7 +755,10 @@ const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
     .video-block { margin-bottom: 50px; }
     .video-title { font-size: 19px; }
     .timeline-row { grid-template-columns: 44px 1fr !important; }
-    .tl-right { padding: 16px 0 38px 18px !important; }
+    .timeline-row[data-side="left"] .tl-card-wrap,
+    .timeline-row[data-side="right"] .tl-card-wrap {
+      padding: 16px 0 38px 18px !important;
+    }
     .tl-card { padding: 22px 24px; }
     .tl-title { font-size: 22px !important; }
     .tl-body { font-size: 14px; }
