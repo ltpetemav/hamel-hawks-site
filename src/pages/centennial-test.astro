@@ -1,0 +1,972 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Centennial Animation Test Bed · Hamel Hawks" page="centennial-test">
+  <section class="ct-hero">
+    <div class="ct-ticker" aria-hidden="true">
+      <div class="ct-ticker-track">
+        <span>★ ONE HUNDRED YEARS · 1926—2026 · A HAMEL TRADITION · CENTENNIAL SEASON · ★ ONE HUNDRED YEARS · 1926—2026 · A HAMEL TRADITION · CENTENNIAL SEASON · ★ ONE HUNDRED YEARS · 1926—2026 · A HAMEL TRADITION · CENTENNIAL SEASON ·&nbsp;</span>
+        <span>★ ONE HUNDRED YEARS · 1926—2026 · A HAMEL TRADITION · CENTENNIAL SEASON · ★ ONE HUNDRED YEARS · 1926—2026 · A HAMEL TRADITION · CENTENNIAL SEASON · ★ ONE HUNDRED YEARS · 1926—2026 · A HAMEL TRADITION · CENTENNIAL SEASON ·&nbsp;</span>
+      </div>
+    </div>
+
+    <div class="wrap ct-hero-wrap">
+      <div class="ct-hero-meta">
+        <span class="ct-pulse"></span>
+        <span>Live · Centennial Test Bed</span>
+      </div>
+
+      <h1 class="ct-title">
+        <span class="ct-flip-row" data-text="ONE"></span><br />
+        <span class="ct-flip-row red" data-text="HUNDRED"></span><br />
+        <span class="ct-flip-row gold" data-text="SUMMERS"></span>
+      </h1>
+
+      <div class="ct-odometer">
+        <span class="ct-odo-from" data-from="1926">1926</span>
+        <span class="ct-odo-arrow">→</span>
+        <span class="ct-odo-to"
+              data-target="2026"
+              data-start="1926">1926</span>
+      </div>
+
+      <div class="ct-controls">
+        <button class="ct-control-btn" id="ct-sound-toggle" aria-pressed="false">
+          🔊 Ambient ballpark audio · OFF
+        </button>
+        <button class="ct-control-btn" id="ct-motion-toggle" aria-pressed="false">
+          ⚡ Reduced motion · auto
+        </button>
+      </div>
+    </div>
+
+    <svg class="ct-seam" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true">
+      <path id="ct-seam-path" d="M 0 40 Q 100 0 200 40 T 400 40 T 600 40 T 800 40 T 1000 40 T 1200 40"
+        fill="none" stroke="#D62B26" stroke-width="2" stroke-dasharray="6 8" />
+    </svg>
+  </section>
+
+  <section class="ct-section">
+    <div class="wrap">
+      <div class="ct-lane-head">
+        <div class="eyebrow">Lane 1 · Subtle</div>
+        <h2 class="headline">Always on. <em>You barely notice them.</em></h2>
+        <p class="ct-lane-sub">Ambient texture. Plays once per page load. Respects <code>prefers-reduced-motion</code>.</p>
+      </div>
+
+      <div class="ct-cards">
+        <div class="ct-card">
+          <div class="ct-card-demo ct-demo-shimmer">
+            <span class="ct-century-100">100</span>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">A · Gold shimmer sweep</div>
+            <h3>Slow gold glint across the 100.</h3>
+            <p>Catches the eye on second glance. Loops every 8s. ~600 bytes of CSS, no JS.</p>
+          </div>
+        </div>
+
+        <div class="ct-card">
+          <div class="ct-card-demo">
+            <div class="ct-odo-demo" id="ct-odo-demo" data-target="100" data-suffix=" years">0 years</div>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">B · Decade odometer</div>
+            <h3>0 → 100 count-up when in view.</h3>
+            <p>Same pattern usable for "ten decades", "three banners", "two MLB alumni". 1s ease-out.</p>
+          </div>
+        </div>
+
+        <div class="ct-card">
+          <div class="ct-card-demo ct-demo-pulse">
+            <span class="ct-pulse-big"></span>
+            <span class="ct-pulse-label">LIVE · Game Day</span>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">C · Live-dot pulse</div>
+            <h3>Soft red beacon on the home page.</h3>
+            <p>For the next-game card on game days. Pauses outside game windows.</p>
+          </div>
+        </div>
+
+        <div class="ct-card">
+          <div class="ct-card-demo ct-demo-seam">
+            <svg viewBox="0 0 240 60" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M 0 30 Q 30 0 60 30 T 120 30 T 180 30 T 240 30"
+                fill="none" stroke="#D62B26" stroke-width="2.5" stroke-dasharray="5 7"
+                pathLength="100" stroke-dashoffset="100" class="ct-seam-anim" />
+            </svg>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">D · Baseball-seam draw</div>
+            <h3>Stitching draws across section breaks.</h3>
+            <p>Replaces the static <code>.double-rule</code> divider with motion. Visible signature of the program.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ct-section ct-section-dark">
+    <div class="wrap">
+      <div class="ct-lane-head">
+        <div class="eyebrow" style="color: var(--gold);">Lane 2 · Mid</div>
+        <h2 class="headline" style="color: var(--cream);">Earn the moment. <em>Trigger and recede.</em></h2>
+        <p class="ct-lane-sub" style="color: rgba(241,230,204,0.7);">Plays on scroll-into-view or click. Doesn't loop. Best for centennial-game and banner-raise sections.</p>
+      </div>
+
+      <div class="ct-cards">
+        <div class="ct-card ct-card-dark">
+          <div class="ct-card-demo ct-card-demo-dark">
+            <canvas id="ct-fw-mini" width="320" height="180"></canvas>
+            <button class="ct-replay" data-target="ct-fw-mini">Replay ↻</button>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">E · Fireworks burst</div>
+            <h3>Three-shot canvas burst, 2.5s.</h3>
+            <p>Triggers when the centennial 100 scrolls into view. Gold + red + cream particles. No autoplay loop.</p>
+          </div>
+        </div>
+
+        <div class="ct-card ct-card-dark">
+          <div class="ct-card-demo ct-card-demo-dark">
+            <div class="ct-scoreboard">
+              <span class="ct-sb-cell" data-from=" " data-to="H"></span>
+              <span class="ct-sb-cell" data-from=" " data-to="A"></span>
+              <span class="ct-sb-cell" data-from=" " data-to="W"></span>
+              <span class="ct-sb-cell" data-from=" " data-to="K"></span>
+              <span class="ct-sb-cell" data-from=" " data-to="S"></span>
+            </div>
+            <button class="ct-replay" data-action="scoreboard">Replay ↻</button>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">F · Flip-board headline</div>
+            <h3>Old-stadium scoreboard flipping into place.</h3>
+            <p>Letter-by-letter rotation. 80ms stagger. Use for the hero word "HAWKS" on first load only.</p>
+          </div>
+        </div>
+
+        <div class="ct-card ct-card-dark">
+          <div class="ct-card-demo ct-card-demo-dark">
+            <button class="ct-sound-btn" data-sound="crack">🪵 Crack of the bat</button>
+            <button class="ct-sound-btn" data-sound="cheer">📣 Crowd cheer</button>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">G · Synthesized sound effects</div>
+            <h3>Generated on demand. ~3 KB JS, no audio files.</h3>
+            <p>Bat crack = pluck w/ pitch drop. Cheer = filtered white noise. Plays only on click. No autoplay.</p>
+          </div>
+        </div>
+
+        <div class="ct-card ct-card-dark">
+          <div class="ct-card-demo ct-card-demo-dark">
+            <div class="ct-banner-row">
+              <div class="ct-banner ct-banner-1987" data-banner>1987</div>
+              <div class="ct-banner ct-banner-1993" data-banner>1993</div>
+              <div class="ct-banner ct-banner-1997" data-banner>1997</div>
+            </div>
+            <button class="ct-replay" data-action="banners">Replay ↻</button>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">H · Banner-raise sequence</div>
+            <h3>Championship years drop in like flags being raised.</h3>
+            <p>Stagger 200ms. Subtle sway on land. Use in the timeline near 1987/93/97.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ct-section ct-section-deep">
+    <div class="wrap">
+      <div class="ct-lane-head">
+        <div class="eyebrow" style="color: var(--gold);">Lane 3 · Bold (opt-in)</div>
+        <h2 class="headline" style="color: var(--cream);">Big swing. <em>Only if you ask for it.</em></h2>
+        <p class="ct-lane-sub" style="color: rgba(241,230,204,0.7);">Sound and full-screen effects gate behind a button. No autoplay anywhere. Use sparingly — once per visitor max.</p>
+      </div>
+
+      <div class="ct-cards">
+        <div class="ct-card ct-card-dark">
+          <div class="ct-card-demo ct-card-demo-dark ct-ambient-demo">
+            <button class="ct-ambient-btn" id="ct-ambient">▶ Play ambient ballpark</button>
+            <p class="ct-ambient-hint">Background crowd murmur + distant organ. 30s loop.</p>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">I · Ambient audio bed</div>
+            <h3>Closed-eyes "you're at the park" texture.</h3>
+            <p>User-initiated. Persists across pages (sessionStorage). One-tap mute in nav.</p>
+          </div>
+        </div>
+
+        <div class="ct-card ct-card-dark">
+          <div class="ct-card-demo ct-card-demo-dark">
+            <button class="ct-organ-btn" id="ct-organ">🎵 Charge!</button>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">J · Organ "Charge" riff</div>
+            <h3>The four-note ballpark chant.</h3>
+            <p>Five tones via Web Audio oscillator. Sounds like a tiny pipe organ in your phone speaker. ~1.5s.</p>
+          </div>
+        </div>
+
+        <div class="ct-card ct-card-dark">
+          <div class="ct-card-demo ct-card-demo-dark">
+            <canvas id="ct-fw-big" width="320" height="220"></canvas>
+            <button class="ct-replay" data-target="ct-fw-big" data-size="big">Launch finale ↻</button>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">K · Full fireworks finale</div>
+            <h3>12-shot canvas display, ~6 seconds.</h3>
+            <p>Reserved for the centennial game button. One-shot per session. ~3 KB JS.</p>
+          </div>
+        </div>
+
+        <div class="ct-card ct-card-dark">
+          <div class="ct-card-demo ct-card-demo-dark ct-easter-demo">
+            <div class="ct-logo-tap" id="ct-easter">
+              <span class="ct-logo-hint">Tap me 10 times</span>
+              <span class="ct-logo-count" id="ct-easter-count">0</span>
+            </div>
+          </div>
+          <div class="ct-card-meta">
+            <div class="ct-card-tag">L · Easter egg</div>
+            <h3>Tap the brand mark 10× for a hidden finale.</h3>
+            <p>Triggers full fireworks + organ + cheer combo. Word-of-mouth moment. Optional — toggle off per page.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ct-section">
+    <div class="wrap" style="max-width: 800px; text-align: center;">
+      <div class="eyebrow" style="justify-content: center;">How to read this page</div>
+      <h2 class="headline" style="margin-top: 14px;">Pick what fits.</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: var(--ink-soft); margin-top: 24px;">
+        Each card above is a candidate, not a commitment. Subtle effects (Lane 1) are safe to add to the live site
+        without disclosure. Mid effects (Lane 2) want a single anchor moment per page — usually the hero or the 100-year
+        banner row. Bold effects (Lane 3) belong on the centennial-game landing only, with a clear opt-in.
+      </p>
+      <p style="font-size: 17px; line-height: 1.6; color: var(--ink-soft); margin-top: 18px;">
+        Reply with letters (A–L) for the ones to wire into the real home page, and I'll port them in.
+      </p>
+      <p style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-muted); margin-top: 32px;">
+        Test bed · /centennial-test · not linked from the nav
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  :global(body[data-page="centennial-test"]) main { background: var(--bg); }
+
+  .ct-hero {
+    position: relative;
+    background: var(--navy-deep);
+    color: var(--cream);
+    overflow: hidden;
+    padding: 0 0 60px;
+  }
+
+  .ct-ticker {
+    background: var(--navy);
+    border-top: 1px solid rgba(201,163,91,0.3);
+    border-bottom: 1px solid rgba(201,163,91,0.3);
+    overflow: hidden;
+    width: 100%;
+  }
+  .ct-ticker-track {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: ct-tick 40s linear infinite;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 10px 0;
+  }
+  @keyframes ct-tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .ct-hero-wrap { padding: 60px 0 40px; text-align: center; max-width: 920px; }
+  .ct-hero-meta {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); display: inline-flex;
+    gap: 10px; align-items: center; margin-bottom: 22px;
+  }
+  .ct-pulse {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--red);
+    box-shadow: 0 0 0 0 rgba(214,43,38,0.6);
+    animation: ct-pulse 1.6s ease-out infinite;
+  }
+  @keyframes ct-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(214,43,38,0.6); }
+    70%  { box-shadow: 0 0 0 10px rgba(214,43,38,0); }
+    100% { box-shadow: 0 0 0 0 rgba(214,43,38,0); }
+  }
+
+  .ct-title {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 11vw, 144px);
+    line-height: 0.84;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .ct-title .red { color: var(--red); }
+  .ct-title .gold { color: var(--gold); }
+  .ct-flip-row {
+    display: inline-block;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream) 49%, rgba(241,230,204,0.85) 51%, var(--cream) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .ct-title .red.ct-flip-row {
+    background: linear-gradient(180deg, var(--red) 0%, var(--red) 49%, var(--red-deep) 51%, var(--red) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .ct-title .gold.ct-flip-row {
+    background: linear-gradient(180deg, var(--gold) 0%, var(--gold) 49%, var(--gold-soft) 51%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ct-odometer {
+    margin-top: 28px;
+    display: inline-flex; gap: 14px; align-items: baseline;
+    font-family: var(--font-display); font-size: clamp(28px, 4.5vw, 48px);
+    letter-spacing: -0.01em;
+    background: rgba(201,163,91,0.08);
+    border: 1px solid rgba(201,163,91,0.3);
+    padding: 14px 28px;
+  }
+  .ct-odo-from { color: rgba(241,230,204,0.6); }
+  .ct-odo-arrow { color: var(--gold); font-size: 0.7em; }
+  .ct-odo-to { color: var(--gold); font-variant-numeric: tabular-nums; }
+
+  .ct-controls {
+    margin-top: 36px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  }
+  .ct-control-btn {
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 10px 16px;
+    color: var(--cream);
+    background: transparent;
+    border: 1px solid rgba(241,230,204,0.3);
+    cursor: pointer;
+    transition: border-color 160ms, color 160ms;
+  }
+  .ct-control-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .ct-control-btn[aria-pressed="true"] { background: rgba(201,163,91,0.15); border-color: var(--gold); color: var(--gold); }
+
+  .ct-seam {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 60px; opacity: 0.5;
+  }
+  #ct-seam-path { stroke-dasharray: 6 8; }
+
+  /* === Sections === */
+  .ct-section { padding: 90px 0; }
+  .ct-section-dark { background: var(--navy); color: var(--cream); }
+  .ct-section-deep { background: var(--navy-deep); color: var(--cream); }
+
+  .ct-lane-head { max-width: 720px; margin-bottom: 50px; }
+  .ct-lane-sub {
+    font-family: var(--font-serif); font-size: 17px; line-height: 1.55;
+    color: var(--fg-muted); margin-top: 18px; max-width: 60ch;
+  }
+  .ct-section-dark .ct-lane-sub code,
+  .ct-section .ct-lane-sub code {
+    font-family: var(--font-mono); font-size: 0.9em;
+    background: rgba(0,0,0,0.1); padding: 2px 6px;
+  }
+
+  /* === Cards === */
+  .ct-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .ct-card {
+    background: var(--cream-soft);
+    border: 1px solid var(--rule);
+    display: flex; flex-direction: column;
+  }
+  .ct-card-dark { background: rgba(241,230,204,0.04); border-color: rgba(241,230,204,0.15); }
+  .ct-card-demo {
+    aspect-ratio: 16/9;
+    background: var(--navy-deep);
+    border-bottom: 1px solid var(--gold);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .ct-card-demo-dark { background: rgba(8,21,42,0.8); }
+  .ct-card-meta { padding: 22px 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .ct-card-tag {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .ct-card-dark .ct-card-tag { color: var(--gold); }
+  .ct-card h3 {
+    font-family: var(--font-serif); font-style: italic; font-weight: 500;
+    font-size: 18px; line-height: 1.25; letter-spacing: -0.005em;
+    text-transform: none; color: var(--navy);
+  }
+  .ct-card-dark h3 { color: var(--cream); }
+  .ct-card p {
+    font-family: var(--font-serif); font-size: 14px; line-height: 1.5;
+    color: var(--fg-muted);
+  }
+  .ct-card-dark p { color: rgba(241,230,204,0.7); }
+  .ct-card code {
+    font-family: var(--font-mono); font-size: 0.85em;
+    background: rgba(0,0,0,0.06); padding: 1px 5px;
+  }
+  .ct-card-dark code { background: rgba(241,230,204,0.1); }
+
+  .ct-replay, .ct-sound-btn, .ct-ambient-btn, .ct-organ-btn {
+    position: absolute; bottom: 12px; right: 12px;
+    font-family: var(--font-display); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 6px 10px;
+    background: rgba(8,21,42,0.85);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    cursor: pointer;
+  }
+  .ct-sound-btn { position: static; margin: 4px; background: rgba(241,230,204,0.06); }
+  .ct-ambient-btn { position: static; padding: 12px 20px; font-size: 13px; background: rgba(241,230,204,0.06); }
+  .ct-ambient-btn.is-playing { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
+  .ct-organ-btn { position: static; padding: 12px 20px; font-size: 13px; background: rgba(241,230,204,0.06); }
+
+  /* === Demo A: gold shimmer on 100 === */
+  .ct-demo-shimmer {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, #1a2f5e 100%);
+  }
+  .ct-century-100 {
+    font-family: var(--font-display);
+    font-size: 96px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    background: linear-gradient(110deg,
+      var(--gold) 0%,
+      var(--gold) 40%,
+      var(--cream) 50%,
+      var(--gold) 60%,
+      var(--gold) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: ct-shimmer 8s ease-in-out infinite;
+  }
+  @keyframes ct-shimmer {
+    0%   { background-position: 200% 50%; }
+    50%  { background-position: -50% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  /* === Demo B: decade odometer === */
+  .ct-odo-demo {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* === Demo C: pulse === */
+  .ct-demo-pulse { gap: 14px; flex-direction: column; }
+  .ct-pulse-big {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 0 0 rgba(214,43,38,0.6);
+    animation: ct-pulse-big 1.6s ease-out infinite;
+  }
+  @keyframes ct-pulse-big {
+    0%   { box-shadow: 0 0 0 0 rgba(214,43,38,0.6); transform: scale(1); }
+    70%  { box-shadow: 0 0 0 28px rgba(214,43,38,0); transform: scale(1.05); }
+    100% { box-shadow: 0 0 0 0 rgba(214,43,38,0); transform: scale(1); }
+  }
+  .ct-pulse-label {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* === Demo D: seam === */
+  .ct-demo-seam { padding: 16px; }
+  .ct-demo-seam svg { width: 100%; height: 60px; }
+  .ct-seam-anim { animation: ct-seam-draw 3s ease-in-out infinite alternate; }
+  @keyframes ct-seam-draw {
+    from { stroke-dashoffset: 100; }
+    to   { stroke-dashoffset: 0; }
+  }
+
+  /* === Demo F: scoreboard === */
+  .ct-scoreboard {
+    display: flex; gap: 6px;
+  }
+  .ct-sb-cell {
+    display: inline-block;
+    width: 38px; height: 56px;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: var(--font-display);
+    font-size: 36px;
+    text-align: center; line-height: 56px;
+    border: 1px solid var(--gold);
+    position: relative;
+    perspective: 200px;
+  }
+  .ct-sb-cell::before {
+    content: attr(data-from);
+    position: absolute; inset: 0;
+    background: var(--navy);
+    transform-origin: center;
+    transition: transform 280ms cubic-bezier(0.5, 1, 0.5, 1);
+  }
+  .ct-sb-cell.flipped::before {
+    content: attr(data-to);
+    transform: rotateX(360deg);
+  }
+
+  /* === Demo H: banner row === */
+  .ct-banner-row { display: flex; gap: 6px; }
+  .ct-banner {
+    width: 64px; height: 92px;
+    background: rgba(214,43,38,0.18);
+    border: 1px solid var(--red);
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: 18px;
+    text-align: center; padding-top: 12px;
+    transform: translateY(-100px);
+    opacity: 0;
+    transition: transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 400ms ease-out;
+  }
+  .ct-banner.is-raised { transform: translateY(0); opacity: 1; }
+  .ct-banner-1993 {
+    background: rgba(201,163,91,0.22);
+    border-color: var(--gold);
+    height: 100px;
+    box-shadow: 0 0 0 3px rgba(201,163,91,0.1);
+  }
+  .ct-banner::after {
+    content: '★';
+    display: block; margin-top: 8px;
+    color: var(--gold); font-size: 14px;
+  }
+
+  /* === Easter egg === */
+  .ct-easter-demo { flex-direction: column; gap: 14px; }
+  .ct-logo-tap {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 2px solid var(--gold);
+    display: grid; place-items: center; cursor: pointer;
+    position: relative;
+    transition: transform 200ms;
+    overflow: hidden;
+  }
+  .ct-logo-tap:active { transform: scale(0.95); }
+  .ct-logo-tap img { width: 76px; height: 76px; object-fit: contain; }
+  .ct-logo-hint {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--navy); padding: 8px; text-align: center;
+  }
+  .ct-logo-count {
+    position: absolute; bottom: 6px; right: 8px;
+    font-family: var(--font-display); font-size: 18px;
+    color: var(--red);
+  }
+  .ct-ambient-hint {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(241,230,204,0.6);
+    text-align: center; margin-top: 10px;
+  }
+
+  @media (max-width: 720px) {
+    .ct-hero-wrap { padding: 40px 0 30px; }
+    .ct-odometer { padding: 10px 18px; font-size: 26px; }
+    .ct-section { padding: 60px 0; }
+    .ct-lane-head { margin-bottom: 32px; }
+    .ct-cards { gap: 14px; }
+    .ct-card-meta { padding: 18px 18px 20px; }
+    .ct-card h3 { font-size: 16px; }
+    .ct-card p { font-size: 13px; }
+    .ct-century-100 { font-size: 72px; }
+    .ct-odo-demo { font-size: 36px; }
+    .ct-sb-cell { width: 30px; height: 44px; font-size: 26px; line-height: 44px; }
+    .ct-banner { width: 50px; height: 72px; font-size: 14px; }
+    .ct-banner-1993 { height: 80px; }
+  }
+
+  /* Reduced-motion preference disables non-essential animations */
+  @media (prefers-reduced-motion: reduce) {
+    body.ct-honor-motion .ct-ticker-track,
+    body.ct-honor-motion .ct-century-100,
+    body.ct-honor-motion .ct-pulse,
+    body.ct-honor-motion .ct-pulse-big,
+    body.ct-honor-motion .ct-seam-anim,
+    body.ct-honor-motion .ct-banner {
+      animation: none !important;
+      transform: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+    }
+  }
+  body.ct-no-motion .ct-ticker-track,
+  body.ct-no-motion .ct-century-100,
+  body.ct-no-motion .ct-pulse,
+  body.ct-no-motion .ct-pulse-big,
+  body.ct-no-motion .ct-seam-anim {
+    animation: none !important;
+  }
+</style>
+
+<script is:inline>
+  document.body.classList.add('ct-honor-motion');
+</script>
+
+<script>
+  // ---------- Decade odometer (hero + Demo B) ----------
+  function countUp(el: HTMLElement, opts?: { duration?: number; suffix?: string }) {
+    const target = parseFloat(el.dataset.target ?? '0');
+    const start = parseFloat(el.dataset.start ?? '0');
+    const duration = opts?.duration ?? 1400;
+    const suffix = opts?.suffix ?? el.dataset.suffix ?? '';
+    const t0 = performance.now();
+    function frame(now: number) {
+      const p = Math.min(1, (now - t0) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const v = Math.round(start + (target - start) * eased);
+      el.textContent = String(v) + suffix;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  const heroOdo = document.querySelector<HTMLElement>('.ct-odo-to');
+  if (heroOdo) countUp(heroOdo, { duration: 2000 });
+  const demoOdo = document.getElementById('ct-odo-demo') as HTMLElement | null;
+  if (demoOdo) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          countUp(demoOdo, { duration: 1200 });
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    obs.observe(demoOdo);
+  }
+
+  // ---------- Sound toggle + Audio context ----------
+  let audioCtx: AudioContext | null = null;
+  function getCtx(): AudioContext {
+    if (!audioCtx) audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    return audioCtx;
+  }
+  let soundOn = false;
+  const soundToggle = document.getElementById('ct-sound-toggle') as HTMLButtonElement | null;
+  soundToggle?.addEventListener('click', () => {
+    soundOn = !soundOn;
+    soundToggle.setAttribute('aria-pressed', String(soundOn));
+    soundToggle.textContent = soundOn
+      ? '🔇 Ambient ballpark audio · ON'
+      : '🔊 Ambient ballpark audio · OFF';
+    if (soundOn) startAmbient(); else stopAmbient();
+  });
+  const motionToggle = document.getElementById('ct-motion-toggle') as HTMLButtonElement | null;
+  motionToggle?.addEventListener('click', () => {
+    const on = document.body.classList.toggle('ct-no-motion');
+    motionToggle.setAttribute('aria-pressed', String(on));
+    motionToggle.textContent = on ? '⚡ Motion · forced off' : '⚡ Reduced motion · auto';
+  });
+
+  // ---------- Synthesized sounds ----------
+  function batCrack() {
+    const ctx = getCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(1800, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.18);
+    gain.gain.setValueAtTime(0.4, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.2);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.21);
+
+    // White-noise crack overlay
+    const buf = ctx.createBuffer(1, ctx.sampleRate * 0.1, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const gn = ctx.createGain();
+    gn.gain.value = 0.4;
+    src.connect(gn).connect(ctx.destination);
+    src.start();
+  }
+
+  function crowdCheer(durationSec = 1.5) {
+    const ctx = getCtx();
+    const buf = ctx.createBuffer(1, ctx.sampleRate * durationSec, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) {
+      const envIn = Math.min(1, i / (ctx.sampleRate * 0.3));
+      const envOut = Math.min(1, (data.length - i) / (ctx.sampleRate * 0.4));
+      data[i] = (Math.random() * 2 - 1) * 0.5 * envIn * envOut;
+    }
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const filt = ctx.createBiquadFilter();
+    filt.type = 'bandpass';
+    filt.frequency.value = 700;
+    filt.Q.value = 0.8;
+    const gain = ctx.createGain();
+    gain.gain.value = 0.6;
+    src.connect(filt).connect(gain).connect(ctx.destination);
+    src.start();
+  }
+
+  function organCharge() {
+    const ctx = getCtx();
+    // Classic "DUH-da-DUH-DUH-DUH ... CHARGE!" — five tones with rising progression
+    const notes = [261.63, 329.63, 392.00, 523.25, 523.25];
+    const lengths = [0.18, 0.18, 0.18, 0.18, 0.45];
+    let t = ctx.currentTime;
+    for (let i = 0; i < notes.length; i++) {
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      osc1.type = 'sawtooth';
+      osc2.type = 'triangle';
+      osc1.frequency.value = notes[i];
+      osc2.frequency.value = notes[i] * 2;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.18, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + lengths[i]);
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+      osc1.start(t);
+      osc2.start(t);
+      osc1.stop(t + lengths[i] + 0.02);
+      osc2.stop(t + lengths[i] + 0.02);
+      t += lengths[i] + 0.04;
+    }
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.ct-sound-btn').forEach((b) => {
+    b.addEventListener('click', () => {
+      const s = b.dataset.sound;
+      if (s === 'crack') batCrack();
+      if (s === 'cheer') crowdCheer();
+    });
+  });
+  document.getElementById('ct-organ')?.addEventListener('click', organCharge);
+
+  // ---------- Ambient bed (filtered noise + slow tone) ----------
+  let ambientNodes: { src: AudioBufferSourceNode; osc: OscillatorNode } | null = null;
+  function startAmbient() {
+    const ctx = getCtx();
+    // Long pink-noise buffer for crowd murmur
+    const dur = 30;
+    const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0;
+    for (let i = 0; i < data.length; i++) {
+      const white = Math.random() * 2 - 1;
+      b0 = 0.99765 * b0 + white * 0.0990460;
+      b1 = 0.96300 * b1 + white * 0.2965164;
+      b2 = 0.57000 * b2 + white * 1.0526913;
+      data[i] = (b0 + b1 + b2 + white * 0.1848) * 0.15;
+    }
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+    const filt = ctx.createBiquadFilter();
+    filt.type = 'lowpass';
+    filt.frequency.value = 600;
+    const gain = ctx.createGain();
+    gain.gain.value = 0.18;
+    src.connect(filt).connect(gain).connect(ctx.destination);
+    src.start();
+
+    // Slow organ pad
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = 130.81; // C3
+    const oGain = ctx.createGain();
+    oGain.gain.value = 0.04;
+    osc.connect(oGain).connect(ctx.destination);
+    osc.start();
+    ambientNodes = { src, osc };
+  }
+  function stopAmbient() {
+    if (!ambientNodes) return;
+    try { ambientNodes.src.stop(); } catch {}
+    try { ambientNodes.osc.stop(); } catch {}
+    ambientNodes = null;
+  }
+  document.getElementById('ct-ambient')?.addEventListener('click', (e) => {
+    const btn = e.currentTarget as HTMLButtonElement;
+    if (btn.classList.contains('is-playing')) {
+      stopAmbient();
+      btn.classList.remove('is-playing');
+      btn.textContent = '▶ Play ambient ballpark';
+    } else {
+      startAmbient();
+      btn.classList.add('is-playing');
+      btn.textContent = '■ Stop ambient ballpark';
+    }
+  });
+
+  // ---------- Fireworks canvas ----------
+  type Part = { x: number; y: number; vx: number; vy: number; life: number; maxLife: number; color: string };
+  const palette = ['#E0B852', '#D62B26', '#F4ECD6', '#F1D27D'];
+
+  function burst(canvas: HTMLCanvasElement, shots: number) {
+    const ctx = canvas.getContext('2d')!;
+    const W = canvas.width;
+    const H = canvas.height;
+    const parts: Part[] = [];
+    function explode(x: number, y: number) {
+      const n = 40 + Math.floor(Math.random() * 20);
+      for (let i = 0; i < n; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const s = 1 + Math.random() * 3.5;
+        parts.push({
+          x, y,
+          vx: Math.cos(a) * s,
+          vy: Math.sin(a) * s,
+          life: 0,
+          maxLife: 60 + Math.random() * 40,
+          color: palette[Math.floor(Math.random() * palette.length)],
+        });
+      }
+    }
+    // schedule shots
+    for (let i = 0; i < shots; i++) {
+      setTimeout(() => {
+        explode(W * (0.2 + Math.random() * 0.6), H * (0.25 + Math.random() * 0.35));
+      }, i * 280);
+    }
+    let raf: number;
+    function step() {
+      ctx.fillStyle = 'rgba(8,21,42,0.18)';
+      ctx.fillRect(0, 0, W, H);
+      for (const p of parts) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.05;
+        p.vx *= 0.99;
+        p.life++;
+        const a = 1 - p.life / p.maxLife;
+        if (a <= 0) continue;
+        ctx.globalAlpha = a;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      const alive = parts.filter((p) => p.life < p.maxLife);
+      parts.length = 0;
+      parts.push(...alive);
+      if (parts.length > 0 || performance.now() < startTime + shots * 300 + 1500) {
+        raf = requestAnimationFrame(step);
+      }
+    }
+    const startTime = performance.now();
+    step();
+  }
+
+  const miniFw = document.getElementById('ct-fw-mini') as HTMLCanvasElement | null;
+  if (miniFw) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          burst(miniFw, 3);
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    observer.observe(miniFw);
+  }
+  document.querySelectorAll<HTMLButtonElement>('.ct-replay[data-target]').forEach((b) => {
+    b.addEventListener('click', () => {
+      const target = document.getElementById(b.dataset.target!) as HTMLCanvasElement;
+      if (!target) return;
+      const shots = b.dataset.size === 'big' ? 12 : 3;
+      burst(target, shots);
+    });
+  });
+
+  // ---------- Scoreboard letter flip ----------
+  function runScoreboard() {
+    const cells = document.querySelectorAll<HTMLElement>('.ct-sb-cell');
+    cells.forEach((c) => c.classList.remove('flipped'));
+    cells.forEach((c, i) => {
+      setTimeout(() => c.classList.add('flipped'), i * 90);
+    });
+  }
+  // Trigger on intersection
+  const sbObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { runScoreboard(); sbObserver.disconnect(); } });
+  }, { threshold: 0.5 });
+  const sb = document.querySelector('.ct-scoreboard');
+  if (sb) sbObserver.observe(sb);
+  document.querySelectorAll<HTMLButtonElement>('.ct-replay[data-action="scoreboard"]').forEach((b) => {
+    b.addEventListener('click', runScoreboard);
+  });
+
+  // ---------- Banner raise ----------
+  function raiseBanners() {
+    const banners = document.querySelectorAll<HTMLElement>('[data-banner]');
+    banners.forEach((b) => b.classList.remove('is-raised'));
+    banners.forEach((b, i) => {
+      setTimeout(() => b.classList.add('is-raised'), i * 200 + 100);
+    });
+  }
+  const bannerObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { raiseBanners(); bannerObserver.disconnect(); } });
+  }, { threshold: 0.4 });
+  const firstBanner = document.querySelector('[data-banner]');
+  if (firstBanner) bannerObserver.observe(firstBanner);
+  document.querySelectorAll<HTMLButtonElement>('.ct-replay[data-action="banners"]').forEach((b) => {
+    b.addEventListener('click', raiseBanners);
+  });
+
+  // ---------- Easter egg ----------
+  const eg = document.getElementById('ct-easter');
+  const egCount = document.getElementById('ct-easter-count');
+  let taps = 0;
+  eg?.addEventListener('click', () => {
+    taps++;
+    if (egCount) egCount.textContent = String(taps);
+    if (taps >= 10) {
+      const big = document.getElementById('ct-fw-big') as HTMLCanvasElement;
+      if (big) burst(big, 12);
+      organCharge();
+      crowdCheer(2.5);
+      taps = 0;
+      if (egCount) egCount.textContent = '★';
+    }
+  });
+</script>
