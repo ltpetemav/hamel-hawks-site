@@ -1069,8 +1069,11 @@ import Base from '../layouts/Base.astro';
     let raf = 0;
     function step() {
       const now = performance.now();
-      ctx.fillStyle = 'rgba(8, 21, 42, 0.16)';
-      ctx.fillRect(0, 0, W, H);
+      // Transparent canvas — fireworks appear OVER website content rather
+      // than dimming it behind a navy wash. Additive compositing makes
+      // overlapping sparks brighten like real fireworks.
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'lighter';
 
       // ascending trails
       for (const tr of trails) {
@@ -1078,21 +1081,20 @@ import Base from '../layouts/Base.astro';
         const p = Math.min(1, (now - tr.t0) / tr.dur);
         if (p >= 1) continue;
         const yy = tr.y + (tr.ty - tr.y) * p;
-        ctx.globalAlpha = 0.5 * (1 - p);
+        ctx.globalAlpha = 0.9 * (1 - p);
         ctx.fillStyle = tr.color;
         ctx.beginPath();
         ctx.arc(tr.x, yy, 2.5, 0, Math.PI * 2);
         ctx.fill();
-        // small spark trail
-        for (let k = 1; k < 4; k++) {
-          ctx.globalAlpha = 0.25 * (1 - p) * (1 - k / 5);
+        for (let k = 1; k < 5; k++) {
+          ctx.globalAlpha = 0.5 * (1 - p) * (1 - k / 5);
           ctx.beginPath();
-          ctx.arc(tr.x, yy + k * 8, 1.5, 0, Math.PI * 2);
+          ctx.arc(tr.x, yy + k * 7, 1.5, 0, Math.PI * 2);
           ctx.fill();
         }
       }
 
-      // explosion particles
+      // explosion particles with halo + bright core
       for (const p of parts) {
         p.x += p.vx;
         p.y += p.vy;
@@ -1101,13 +1103,18 @@ import Base from '../layouts/Base.astro';
         p.life++;
         const a = 1 - p.life / p.maxLife;
         if (a <= 0) continue;
-        ctx.globalAlpha = a;
+        ctx.globalAlpha = a * 0.35;
         ctx.fillStyle = p.color;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = a;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'source-over';
 
       // cull dead
       for (let i = parts.length - 1; i >= 0; i--) {

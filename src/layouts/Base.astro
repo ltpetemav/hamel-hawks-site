@@ -231,32 +231,45 @@ const {
         }
         const endTime = performance.now() + shots * 380 + 2500;
 
+        // Use additive compositing so overlapping sparks brighten like real
+        // fireworks, and clear the canvas each frame so the website content
+        // shows through everywhere except the particles themselves.
         function step() {
           const now = performance.now();
-          ctx.fillStyle = 'rgba(8, 21, 42, 0.16)';
-          ctx.fillRect(0, 0, W, H);
+          ctx.clearRect(0, 0, W, H);
+          ctx.globalCompositeOperation = 'lighter';
+
+          // Ascending sparkler trails
           for (const tr of trails) {
             if (now < tr.t0) continue;
             const p = Math.min(1, (now - tr.t0) / tr.dur);
             if (p >= 1) continue;
             const yy = tr.y + (tr.ty - tr.y) * p;
-            ctx.globalAlpha = 0.5 * (1 - p);
+            ctx.globalAlpha = 0.9 * (1 - p);
             ctx.fillStyle = tr.color;
             ctx.beginPath(); ctx.arc(tr.x, yy, 2.5, 0, Math.PI * 2); ctx.fill();
-            for (let k = 1; k < 4; k++) {
-              ctx.globalAlpha = 0.25 * (1 - p) * (1 - k / 5);
-              ctx.beginPath(); ctx.arc(tr.x, yy + k * 8, 1.5, 0, Math.PI * 2); ctx.fill();
+            for (let k = 1; k < 5; k++) {
+              ctx.globalAlpha = 0.5 * (1 - p) * (1 - k / 5);
+              ctx.beginPath(); ctx.arc(tr.x, yy + k * 7, 1.5, 0, Math.PI * 2); ctx.fill();
             }
           }
+
+          // Explosion particles — each draws its own glow halo + bright core
           for (const p of parts) {
             p.x += p.vx; p.y += p.vy; p.vy += 0.06; p.vx *= 0.99; p.life++;
             const a = 1 - p.life / p.maxLife;
             if (a <= 0) continue;
-            ctx.globalAlpha = a;
+            // soft glow halo
+            ctx.globalAlpha = a * 0.35;
             ctx.fillStyle = p.color;
-            ctx.beginPath(); ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, Math.PI * 2); ctx.fill();
+            // bright core
+            ctx.globalAlpha = a;
+            ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
           }
           ctx.globalAlpha = 1;
+          ctx.globalCompositeOperation = 'source-over';
+
           for (let i = parts.length - 1; i >= 0; i--) {
             if (parts[i].life >= parts[i].maxLife) parts.splice(i, 1);
           }
