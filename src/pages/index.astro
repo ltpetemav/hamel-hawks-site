@@ -4,8 +4,10 @@ import { DECADES, FIGURES } from '../data/decades.ts';
 import { SPONSOR_WALL_PREMIER, SPONSOR_WALL_SUPPORTING } from '../data/sponsors.ts';
 import { SCHEDULE_2026, fmtMonth, fmtDay } from '../data/schedule.ts';
 
-const today = new Date();
-const futureGames = SCHEDULE_2026.filter((g) => new Date(g.date) >= today && g.time !== 'TBD');
+// Today as ISO date string in America/Chicago — string-compares with each
+// game's 'YYYY-MM-DD' date and avoids UTC-midnight off-by-one errors at build.
+const todayCT = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
+const futureGames = SCHEDULE_2026.filter((g) => g.date >= todayCT && g.time !== 'TBD');
 const nextGame = futureGames[0] ?? SCHEDULE_2026[SCHEDULE_2026.length - 1];
 
 const next = {

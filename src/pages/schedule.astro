@@ -2,7 +2,9 @@
 import Base from '../layouts/Base.astro';
 import { SCHEDULE_2026, fmtMonth, fmtDay } from '../data/schedule.ts';
 
-const today = new Date();
+// Today as ISO date string in America/Chicago — string-compares cleanly with
+// each game's 'YYYY-MM-DD' date and avoids UTC-midnight off-by-one errors.
+const todayCT = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
 const homeCount = SCHEDULE_2026.filter((g) => g.home).length;
 const awayCount = SCHEDULE_2026.length - homeCount;
 const classB = SCHEDULE_2026.filter((g) => g.cls === 'B').length;
@@ -73,7 +75,7 @@ function clsLabel(c: 'B' | 'C' | 'X') {
                 </div>
                 <div>
                   {games.map((g, i) => {
-                    const isPast = new Date(g.date) < today;
+                    const isPast = g.date < todayCT;
                     const stripeCls = g.cls === 'B' ? 'stripe-gold' : g.cls === 'C' ? 'stripe-red' : 'stripe-navy';
                     const tagCls = g.cls === 'B' ? 'cls-b' : g.cls === 'C' ? 'cls-c' : 'cls-x';
                     const locText = g.home
