@@ -382,6 +382,27 @@ const {
         });
       });
 
+      // ---- Crack-of-the-bat on every link click ----
+      // Use pointerdown so the sound starts before navigation. Skip links
+      // that already have their own hhfx hook or are FX controls, and
+      // skip pure-anchor hash navigation (#section) so scrolling within
+      // a page doesn't spam the sound.
+      document.addEventListener('pointerdown', (e) => {
+        const target = e.target as HTMLElement | null;
+        if (!target) return;
+        const link = target.closest('a');
+        if (!link) return;
+        if (link.hasAttribute('data-hhfx-click')) return;
+        if (link.classList.contains('hhfx-audio-btn')) return;
+        if (link.closest('[data-hhfx-click]')) return;
+        const href = link.getAttribute('href') ?? '';
+        // Skip pure in-page anchors and javascript: links
+        if (href.startsWith('#') || href === '#' || href.startsWith('javascript:')) return;
+        // Don't crack on the brand mark — that has its own easter egg
+        if (link.classList.contains('brand') || target.closest('.brand-mark')) return;
+        batCrack();
+      });
+
       // Expose for pages that want to call FX directly
       (window as any).HHFX = {
         launchFireworks,
