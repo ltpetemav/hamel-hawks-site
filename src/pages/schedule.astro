@@ -1,0 +1,274 @@
+---
+import Base from '../layouts/Base.astro';
+import { SCHEDULE_2026, fmtMonth, fmtDay } from '../data/schedule.ts';
+
+const today = new Date('2026-05-15');
+const homeCount = SCHEDULE_2026.filter((g) => g.home).length;
+const classB = SCHEDULE_2026.filter((g) => g.cls === 'B').length;
+
+// Group games by month preserving order
+const grouped: Record<string, typeof SCHEDULE_2026> = {};
+for (const g of SCHEDULE_2026) {
+  const m = fmtMonth(g.date);
+  if (!grouped[m]) grouped[m] = [];
+  grouped[m].push(g);
+}
+---
+<Base title="2026 Schedule · Hamel Hawks Centennial Season" page="schedule">
+  <section class="section section-dark page-hero" style="padding: 80px 0 60px;">
+    <div class="wrap">
+      <div class="sched-hero-grid">
+        <div>
+          <div class="eyebrow" style="color: var(--gold);">Centennial Season · {SCHEDULE_2026.length} Games</div>
+          <h1 class="display" style="color: var(--cream); margin-top: 18px;">
+            The 2026<br />
+            <span style="color: var(--gold); font-style: italic; font-family: var(--font-serif); font-weight: 500; text-transform: none; letter-spacing: -0.01em;">Schedule.</span>
+          </h1>
+          <p class="lede" style="margin-top: 24px;">
+            A century in. Two matchups against every Class B team in the North Star League,
+            and a single Class C tilt against each of our division rivals.
+          </p>
+        </div>
+        <div class="sched-legend">
+          <div class="legend-row"><span class="legend-dot legend-gold"></span><span>★ Class B League Game</span></div>
+          <div class="legend-row"><span class="legend-dot legend-red"></span><span>✦ Class C League Game</span></div>
+          <div class="legend-row"><span class="legend-dot legend-cream"></span><span>Home Game · Fortin Field</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 60px 0 100px; background: var(--cream-soft);">
+    <div class="wrap">
+      <div class="sched-body">
+        <div>
+          <div class="sched-filters">
+            <span class="sched-filters-label">Filter:</span>
+            <button class="sched-btn is-active" data-filter="all">All Games</button>
+            <button class="sched-btn" data-filter="home">Home</button>
+            <button class="sched-btn" data-filter="away">Away</button>
+            <button class="sched-btn" data-filter="B">Class B</button>
+            <button class="sched-btn" data-filter="C">Class C</button>
+            <button class="sched-btn" data-filter="special">Special</button>
+          </div>
+
+          <div class="sched-list">
+            {Object.entries(grouped).map(([month, games]) => (
+              <div class="sched-month" data-month={month}>
+                <div class="sched-month-head">
+                  <h2 class="century" style="font-size: 56px; color: var(--navy); line-height: 0.9;">{month}</h2>
+                  <span class="sched-month-meta">2026 · <span class="month-count">{games.length}</span> game{games.length > 1 ? 's' : ''}</span>
+                </div>
+                <div>
+                  {games.map((g, i) => {
+                    const isPast = new Date(g.date) < today;
+                    const isClassB = g.cls === 'B';
+                    return (
+                      <div
+                        class={`game-row ${isPast ? 'is-past' : ''} ${i % 2 === 0 ? 'is-stripe' : ''}`}
+                        data-home={g.home ? '1' : '0'}
+                        data-cls={g.cls}
+                        data-special={g.special ? '1' : '0'}
+                      >
+                        <div class={`game-stripe ${isClassB ? 'stripe-gold' : 'stripe-red'}`}></div>
+                        <div class="game-date">
+                          <div class="gd-day">{g.day.toUpperCase()}</div>
+                          <div class="gd-num">{fmtDay(g.date)}</div>
+                          <div class="gd-mon">{fmtMonth(g.date)}</div>
+                        </div>
+                        <div class="game-info">
+                          <div class="game-tags">
+                            <span class={`game-class ${isClassB ? 'cls-b' : 'cls-c'}`}>{isClassB ? '★ Class B' : '✦ Class C'}</span>
+                            <span class="game-loc">{g.home ? 'Home · Fortin Field' : `Away · ${g.opp.split(' ')[0]}, MN`}</span>
+                          </div>
+                          <div class="game-matchup">{g.home ? 'vs.' : 'at'} {g.opp}</div>
+                          {g.special && <div class={`game-special ${g.special.includes('★') ? 'is-star' : ''}`}>{g.special}</div>}
+                        </div>
+                        <div class="game-time-col">
+                          <div class="game-time">{g.time}</div>
+                          <a href="#" class="game-link">Game Day Info →</a>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <aside class="sched-sidebar">
+          <div class="card" style="padding: 28px;">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <div class="eyebrow">Season Snapshot</div>
+            <div class="snap-grid">
+              <div><div class="century" style="font-size: 44px; color: var(--navy);">{SCHEDULE_2026.length}</div><div class="snap-label">Games</div></div>
+              <div><div class="century" style="font-size: 44px; color: var(--accent);">{homeCount}</div><div class="snap-label">Home</div></div>
+              <div><div class="century" style="font-size: 44px; color: var(--navy);">{SCHEDULE_2026.length - homeCount}</div><div class="snap-label">Away</div></div>
+              <div><div class="century" style="font-size: 44px; color: var(--accent-2);">{classB}</div><div class="snap-label">Class B</div></div>
+            </div>
+            <div class="divider"></div>
+            <h4 class="snap-h">Special Events</h4>
+            <ul class="snap-list">
+              <li>★ <strong>May 22</strong> · Centennial Opener</li>
+              <li>★ <strong>Jun 04</strong> · Throwback Night (1926 jerseys)</li>
+              <li>★ <strong>Jun 11</strong> · Family Fireworks</li>
+              <li>★ <strong>Jun 26–28</strong> · 100-Year Celebration Weekend</li>
+              <li>★ <strong>Jun 27</strong> · Old-Timers Game · Alumni</li>
+              <li>★ ★ ★ <strong>Jun 28</strong> · MBA 100 Year Anniversary Game vs. Loretto</li>
+              <li>★ <strong>Jul 04</strong> · Independence Day</li>
+            </ul>
+            <div class="divider"></div>
+            <a href="webcal://api.team-manager.gc.com/ics-calendar-documents/user/a8f29897-b086-44ca-8daa-76afb14ad179.ics" class="btn btn-primary" style="width: 100%; justify-content: center;">+ Sync to Calendar</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sched-hero-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 60px; align-items: end;
+  }
+  @media (max-width: 880px) { .sched-hero-grid { grid-template-columns: 1fr; } }
+  .sched-legend {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(241,230,204,0.7); padding-bottom: 20px;
+    display: grid; gap: 12px;
+  }
+  .legend-row { display: flex; gap: 14px; align-items: center; }
+  .legend-dot { display: inline-block; width: 12px; height: 12px; }
+  .legend-gold { background: var(--gold); }
+  .legend-red { background: var(--red); }
+  .legend-cream { background: var(--cream); }
+  .sched-body {
+    display: grid; grid-template-columns: 1fr 320px;
+    gap: 60px; align-items: start;
+  }
+  @media (max-width: 980px) { .sched-body { grid-template-columns: 1fr; } }
+  .sched-filters {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 30px;
+  }
+  .sched-filters-label {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-muted); margin-right: 8px;
+  }
+  .sched-btn {
+    padding: 8px 14px; font-family: var(--font-display);
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    background: transparent; color: var(--navy);
+    border: 1px solid var(--navy); cursor: pointer;
+  }
+  .sched-btn.is-active { background: var(--navy); color: var(--cream); }
+  .sched-month-head {
+    display: flex; align-items: baseline; gap: 16px;
+    border-bottom: 2px solid var(--navy);
+    padding-bottom: 12px; margin-bottom: 18px;
+  }
+  .sched-month-meta {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted);
+  }
+  .sched-month { margin-bottom: 50px; }
+  .game-row {
+    display: grid; grid-template-columns: 90px 1fr auto;
+    gap: 24px; padding: 24px 28px;
+    background: transparent; border: 1px solid var(--rule);
+    align-items: center; position: relative;
+    transition: background 160ms;
+  }
+  .game-row.is-stripe { background: var(--cream-soft); }
+  .game-row:hover { background: rgba(201,163,91,0.08); }
+  .game-row.is-past { opacity: 0.45; }
+  .game-row.is-hidden { display: none; }
+  .game-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+  .stripe-gold { background: var(--gold); }
+  .stripe-red { background: var(--red); }
+  .game-date { text-align: center; }
+  .gd-day { font-family: var(--font-display); font-size: 12px; color: var(--accent); letter-spacing: 0.2em; }
+  .gd-num { font-family: var(--font-display); font-size: 44px; color: var(--navy); line-height: 1; letter-spacing: -0.02em; }
+  .gd-mon { font-family: var(--font-display); font-size: 12px; color: var(--navy); letter-spacing: 0.2em; }
+  .game-tags { display: flex; gap: 12px; align-items: center; margin-bottom: 6px; flex-wrap: wrap; }
+  .game-class {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    padding: 3px 8px;
+  }
+  .cls-b { background: var(--gold); color: var(--navy-deep); }
+  .cls-c { background: var(--red); color: var(--cream); }
+  .game-loc {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-muted);
+  }
+  .game-matchup {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 26px; line-height: 1.1; color: var(--navy);
+  }
+  .game-special {
+    margin-top: 8px; font-family: var(--font-serif);
+    font-size: 14px; color: var(--fg-muted);
+  }
+  .game-special.is-star { color: var(--accent); }
+  .game-time-col { text-align: right; }
+  .game-time {
+    font-family: var(--font-mono); font-size: 18px;
+    color: var(--navy); letter-spacing: 0.05em; font-weight: 500;
+  }
+  .game-link {
+    margin-top: 10px; display: inline-block;
+    font-family: var(--font-display); font-size: 11px;
+    letter-spacing: 0.18em; color: var(--accent);
+  }
+  .sched-sidebar { position: sticky; top: 110px; }
+  .snap-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px; margin-top: 24px;
+  }
+  .snap-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--fg-muted); text-transform: uppercase; }
+  .snap-h { font-family: var(--font-display); font-size: 13px; letter-spacing: 0.18em; margin-bottom: 14px; }
+  .snap-list {
+    list-style: none; display: grid; gap: 12px;
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 15px; line-height: 1.35;
+  }
+  .snap-list strong { font-style: normal; }
+</style>
+
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('.sched-btn');
+  const rows = document.querySelectorAll<HTMLElement>('.game-row');
+  const months = document.querySelectorAll<HTMLElement>('.sched-month');
+
+  function apply(filter: string) {
+    rows.forEach((r) => {
+      const home = r.dataset.home === '1';
+      const cls = r.dataset.cls;
+      const special = r.dataset.special === '1';
+      let show = true;
+      if (filter === 'home') show = home;
+      else if (filter === 'away') show = !home;
+      else if (filter === 'B' || filter === 'C') show = cls === filter;
+      else if (filter === 'special') show = special;
+      r.classList.toggle('is-hidden', !show);
+    });
+    months.forEach((m) => {
+      const visible = m.querySelectorAll('.game-row:not(.is-hidden)').length;
+      const countEl = m.querySelector<HTMLElement>('.month-count');
+      if (countEl) countEl.textContent = String(visible);
+      m.style.display = visible === 0 ? 'none' : '';
+    });
+  }
+
+  btns.forEach((b) => {
+    b.addEventListener('click', () => {
+      btns.forEach((x) => x.classList.remove('is-active'));
+      b.classList.add('is-active');
+      apply(b.dataset.filter || 'all');
+    });
+  });
+</script>

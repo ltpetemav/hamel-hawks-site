@@ -1,0 +1,138 @@
+---
+import Base from '../layouts/Base.astro';
+import { PRODUCTS } from '../data/shop.ts';
+---
+<Base title="Centennial Shop · Hamel Hawks" page="shop">
+  <section class="section section-dark page-hero" style="padding: 80px 0 50px; position: relative; overflow: hidden;">
+    <div class="shop-decorative">100</div>
+    <div class="wrap" style="position: relative;">
+      <div class="eyebrow" style="color: var(--gold);">★ Limited Centennial Collection</div>
+      <h1 class="display" style="color: var(--cream); margin-top: 18px;">
+        The 1926 Shop.<br />
+        <span style="color: var(--gold); font-style: italic; font-family: var(--font-serif); font-weight: 500; text-transform: none; letter-spacing: -0.01em;">A century, on your back.</span>
+      </h1>
+      <p class="lede" style="margin-top: 24px; max-width: 60ch;">
+        Throwback jerseys, vintage caps, the centennial logo tee, and a numbered run of
+        commemorative pennants — only made for the hundredth season.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 70px 0 100px; background: var(--cream-soft);">
+    <div class="wrap">
+      <div class="shop-head">
+        <h2 class="century" style="font-size: 64px; color: var(--navy);">SHOP ALL</h2>
+        <span class="shop-meta">{PRODUCTS.length} items · Free shipping over $75</span>
+      </div>
+      <div class="shop-grid">
+        {PRODUCTS.map((p) => (
+          <div class="product">
+            <div class="product-visual">
+              <div class="product-halftone"></div>
+              <div class="product-graphic">
+                <div class="pg-est">EST · 1926</div>
+                <div class="century pg-100">100</div>
+                <div class="pg-name">HAMEL · HAWKS</div>
+              </div>
+              {p.limited && <div class="product-limited">★ Limited</div>}
+              <div class="product-tag">{p.tag}</div>
+            </div>
+            <div class="product-info">
+              <div class="product-name">{p.name}</div>
+              <p class="product-desc">{p.desc}</p>
+              <div class="product-foot">
+                <span class="product-price">${p.price}</span>
+                <button class="btn btn-primary" style="padding: 8px 14px; font-size: 11px;">Add to Bag</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper">
+    <div class="wrap" style="text-align: center; max-width: 720px; margin: 0 auto;">
+      <div class="eyebrow" style="justify-content: center;">A Note</div>
+      <h2 class="headline" style="margin-top: 12px;">Every dollar supports the team.</h2>
+      <p style="font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin-top: 20px;">
+        The Hamel Hawks are a non-profit town ball team. Merchandise sales pay for uniforms,
+        umpires, equipment, and the field. Buy a hat — keep the lights on at Fortin Field.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .shop-decorative {
+    position: absolute; top: -30px; right: -40px;
+    font-family: var(--font-display);
+    font-size: clamp(200px, 30vw, 460px);
+    color: rgba(201,163,91,0.06);
+    letter-spacing: -0.06em; line-height: 0.8;
+    pointer-events: none;
+  }
+  .shop-head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 32px; flex-wrap: wrap; gap: 16px;
+  }
+  .shop-meta {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted);
+  }
+  .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .product {
+    background: var(--cream-soft); border: 1px solid var(--rule);
+    display: flex; flex-direction: column;
+    transition: transform 200ms, box-shadow 200ms;
+    cursor: pointer;
+  }
+  .product:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(14,31,58,0.12); }
+  .product-visual {
+    position: relative; aspect-ratio: 4 / 5;
+    background: var(--navy); overflow: hidden;
+    border-bottom: 1px solid var(--gold);
+  }
+  .product-halftone {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(201,163,91,0.18) 1px, transparent 1px);
+    background-size: 5px 5px;
+  }
+  .product-graphic {
+    position: absolute; inset: 0;
+    display: grid; place-items: center; text-align: center;
+  }
+  .pg-est { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; color: var(--gold); }
+  .pg-100 { font-size: 96px; color: var(--cream); line-height: 0.8; margin-top: 6px; letter-spacing: -0.04em; }
+  .pg-name { font-family: var(--font-display); font-size: 14px; color: var(--gold); letter-spacing: 0.2em; margin-top: 8px; }
+  .product-limited {
+    position: absolute; top: 12px; left: 12px;
+    padding: 4px 8px; background: var(--red); color: var(--cream);
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+  }
+  .product-tag {
+    position: absolute; top: 12px; right: 12px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase;
+  }
+  .product-info {
+    padding: 20px 22px 22px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .product-name {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 20px; line-height: 1.2; color: var(--navy);
+  }
+  .product-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.45; min-height: 36px; }
+  .product-foot {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: 8px; padding-top: 12px;
+    border-top: 1px solid var(--rule);
+  }
+  .product-price { font-family: var(--font-display); font-size: 24px; color: var(--navy); }
+</style>

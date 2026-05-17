@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+import { FEATURE, STORIES } from '../data/news.ts';
+---
+<Base title="News · Hamel Hawks" page="news">
+  <section class="section section-dark page-hero" style="padding: 70px 0 50px; border-bottom: 1px solid rgba(201,163,91,0.3);">
+    <div class="wrap">
+      <div class="news-hero">
+        <div>
+          <div class="eyebrow" style="color: var(--gold);">The Hamel Dispatch · Vol. 100 · Iss. 1</div>
+          <h1 class="display" style="color: var(--cream); margin-top: 18px;">News &amp; Notes.</h1>
+        </div>
+        <div class="news-hero-stamp">Updated May 16, 2026 · 9:30 AM CDT</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 0; background: var(--cream-soft);">
+    <div class="wrap" style="padding-top: 60px; padding-bottom: 100px;">
+      <article class="news-feature">
+        <div>
+          <div class="news-kicker">{FEATURE.kicker} · {FEATURE.date}</div>
+          <h2 class="headline news-feature-title">{FEATURE.title}</h2>
+          <p class="news-dek">{FEATURE.dek}</p>
+          <div class="news-byline">{FEATURE.byline}</div>
+          <div class="news-body">
+            {FEATURE.body.map((p, i) => (
+              <p class="news-body-p" style={i === 0 ? 'font-size: 19px;' : ''}>
+                {i === 0 && <span class="news-dropcap">{p[0]}</span>}
+                {i === 0 ? p.slice(1) : p}
+              </p>
+            ))}
+          </div>
+          <div class="news-cta-bar">
+            <span style="font-family: var(--font-serif); font-style: italic; font-size: 18px;">See you at the park, Hamel.</span>
+            <a href="/schedule" style="font-family: var(--font-display); font-size: 13px; letter-spacing: 0.18em; color: var(--gold);">Full Schedule →</a>
+          </div>
+        </div>
+        <aside class="news-photo">
+          <div class="news-photo-frame">
+            <img src="/assets/field-drone.avif" alt="Fortin Field" />
+          </div>
+          <div class="news-photo-caption">★ Photo · 2026 Centennial Opener</div>
+        </aside>
+      </article>
+
+      <div class="news-more">
+        <div class="news-more-head">
+          <h3 class="news-more-title">MORE NOTES</h3>
+          <span class="news-more-meta">This week · {STORIES.length} stories</span>
+        </div>
+        <div>
+          {STORIES.map((s) => (
+            <a href="#" class="story-row">
+              <span class="story-tag">{s.tag}</span>
+              <span class="story-date">{s.date}</span>
+              <div>
+                <div class="story-title">{s.title}</div>
+                <p class="story-dek">{s.dek}</p>
+              </div>
+              <span class="story-arrow">Read →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .news-hero {
+    display: flex; justify-content: space-between;
+    align-items: end; flex-wrap: wrap; gap: 20px;
+  }
+  .news-hero-stamp {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; color: rgba(241,230,204,0.6); text-transform: uppercase;
+  }
+  .news-feature {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 60px; align-items: start;
+  }
+  @media (max-width: 880px) { .news-feature { grid-template-columns: 1fr; gap: 40px; } }
+  .news-kicker {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.24em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .news-feature-title {
+    font-size: clamp(36px, 4vw, 56px);
+    margin-bottom: 18px; font-style: normal;
+  }
+  .news-dek {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 22px; line-height: 1.4;
+    color: var(--ink-soft); margin-bottom: 24px;
+  }
+  .news-byline {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; color: var(--fg-muted);
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .news-body { border-top: 1px solid var(--rule); padding-top: 24px; }
+  .news-body-p { font-size: 18px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 18px; }
+  .news-dropcap {
+    font-family: var(--font-display); font-size: 64px;
+    line-height: 0.85; float: left;
+    margin-right: 10px; margin-top: 4px;
+    color: var(--accent);
+  }
+  .news-cta-bar {
+    margin-top: 28px; padding: 20px 24px;
+    background: var(--navy); color: var(--cream);
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .news-photo-frame {
+    width: 100%; aspect-ratio: 4 / 5;
+    overflow: hidden; background: var(--navy-deep);
+    border: 1px solid var(--rule);
+  }
+  .news-photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .news-photo-caption {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-muted); margin-top: 10px;
+  }
+  .news-more {
+    margin-top: 80px; padding-top: 30px;
+    border-top: 4px double var(--navy);
+  }
+  .news-more-head {
+    display: flex; justify-content: space-between;
+    align-items: end; margin-bottom: 20px;
+  }
+  .news-more-title {
+    font-family: var(--font-display); font-size: 32px;
+    color: var(--navy); letter-spacing: 0.04em;
+  }
+  .news-more-meta {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; color: var(--fg-muted); text-transform: uppercase;
+  }
+  .story-row {
+    display: grid; grid-template-columns: 90px 100px 1fr auto;
+    gap: 24px; padding: 24px 4px;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+    transition: background 160ms;
+  }
+  .story-row:hover { background: rgba(201,163,91,0.08); }
+  .story-tag {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.22em; padding: 4px 8px;
+    text-transform: uppercase;
+    background: var(--navy); color: var(--cream);
+    justify-self: start;
+  }
+  .story-date {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.16em; color: var(--fg-muted); text-transform: uppercase;
+  }
+  .story-title {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 24px; line-height: 1.2; color: var(--navy);
+  }
+  .story-dek { margin-top: 6px; font-size: 14px; color: var(--fg-muted); line-height: 1.5; }
+  .story-arrow {
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.18em; color: var(--accent);
+  }
+</style>

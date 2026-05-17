@@ -1,0 +1,246 @@
+---
+import Base from '../layouts/Base.astro';
+import { ROSTER, COACHES } from '../data/roster.ts';
+
+const isInfield = (p: string) => /^(1B|2B|3B|SS|IF|UTIL)$/.test(p);
+const isOutfield = (p: string) => /^(CF|LF|RF|OF)$/.test(p);
+
+function group(p: string) {
+  if (p === 'P') return 'P';
+  if (p === 'C') return 'C';
+  if (isInfield(p)) return 'IF';
+  if (isOutfield(p)) return 'OF';
+  return 'OTHER';
+}
+---
+<Base title="2026 Roster · Hamel Hawks" page="roster">
+  <section class="section section-dark page-hero" style="padding: 80px 0 60px;">
+    <div class="wrap">
+      <div class="eyebrow" style="color: var(--gold);">2026 Centennial Roster · {ROSTER.length} Hawks</div>
+      <h1 class="display" style="color: var(--cream); margin-top: 18px;">
+        The <span style="color: var(--gold); font-style: italic; font-family: var(--font-serif); font-weight: 500; text-transform: none; letter-spacing: -0.01em;">Hawks.</span>
+      </h1>
+      <p class="lede" style="margin-top: 24px; max-width: 65ch;">
+        Twenty-five men chasing the centennial banner. College talent from St. Thomas to the U of M,
+        playing under field manager Jeff Ruhr. Click any card to flip.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 60px 0; background: var(--cream-soft);">
+    <div class="wrap">
+      <div class="ros-filters">
+        <span class="ros-filters-label">Filter:</span>
+        <button class="ros-btn is-active" data-filter="all">All</button>
+        <button class="ros-btn" data-filter="P">Pitchers</button>
+        <button class="ros-btn" data-filter="IF">Infield</button>
+        <button class="ros-btn" data-filter="OF">Outfield</button>
+        <button class="ros-btn" data-filter="C">Catchers</button>
+        <button class="ros-btn" data-filter="return">Returning ★</button>
+        <span class="ros-count"><span id="ros-visible">{ROSTER.length}</span> of {ROSTER.length} · Click to flip</span>
+      </div>
+
+      <div class="ros-grid">
+        {ROSTER.map((p) => (
+          <div class="ros-card" data-group={group(p.pos)} data-returning={p.returning ? '1' : '0'}>
+            <div class="ros-card-inner">
+              <div class="ros-front">
+                <div class="ros-num">{String(p.no).padStart(2, '0')}</div>
+                {p.captain && <div class="ros-captain">Captain ★</div>}
+                <div class="ros-portrait">
+                  <svg viewBox="0 0 100 120" style="width: 60%; opacity: 0.4;">
+                    <circle cx="50" cy="38" r="18" fill="var(--gold)" />
+                    <path d="M 22 120 Q 22 70 50 64 Q 78 70 78 120 Z" fill="var(--gold)" />
+                  </svg>
+                </div>
+                <div class="ros-name-plate">
+                  <div class="ros-pos">{p.pos} · {p.bt}</div>
+                  <div class="ros-name">{p.name}</div>
+                </div>
+              </div>
+              <div class="ros-back">
+                <div class="ros-back-meta">#{p.no} · {p.pos}</div>
+                <div class="ros-back-name">{p.name}</div>
+                <div class="divider" style="margin: 4px 0;"></div>
+                <div class="ros-detail-grid">
+                  <div><span class="ros-detail-label">Bats/Throws</span><div>{p.bt}</div></div>
+                  <div><span class="ros-detail-label">Hometown</span><div>{p.hometown}</div></div>
+                  <div><span class="ros-detail-label">College</span><div>{p.college}</div></div>
+                </div>
+                {p.returning && <div class="ros-returning">★ Returning Hawk</div>}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper" style="padding: 80px 0;">
+    <div class="wrap">
+      <div class="eyebrow">Coaching Staff</div>
+      <h2 class="headline" style="margin-top: 16px; margin-bottom: 40px;">
+        The men <em>running the dugout.</em>
+      </h2>
+      <div class="coaches-grid">
+        {COACHES.map((c) => (
+          <div class="card" style="padding: 36px 32px; background: var(--cream-soft);">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <div class="coach-role">{c.role} · Since {c.since}</div>
+            <div class="coach-name">{c.name}</div>
+            <p class="coach-note">{c.note}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ros-filters {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 36px; align-items: center;
+  }
+  .ros-filters-label {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-muted); margin-right: 8px;
+  }
+  .ros-btn {
+    padding: 8px 14px; font-family: var(--font-display);
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    background: transparent; color: var(--navy);
+    border: 1px solid var(--navy); cursor: pointer;
+  }
+  .ros-btn.is-active { background: var(--navy); color: var(--cream); }
+  .ros-count {
+    margin-left: auto;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; color: var(--fg-muted);
+  }
+  .ros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+  }
+  .ros-card {
+    position: relative; aspect-ratio: 3 / 4;
+    cursor: pointer; perspective: 1000px;
+  }
+  .ros-card.is-hidden { display: none; }
+  .ros-card-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 600ms cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+  .ros-card.is-flipped .ros-card-inner { transform: rotateY(180deg); }
+  .ros-front, .ros-back {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    overflow: hidden;
+  }
+  .ros-front {
+    background: var(--navy); color: var(--cream);
+    border: 1px solid rgba(201,163,91,0.3);
+    display: flex; flex-direction: column;
+  }
+  .ros-num {
+    position: absolute; top: 16px; right: 16px;
+    font-family: var(--font-display); font-size: 56px;
+    color: var(--gold); line-height: 0.85; letter-spacing: -0.04em;
+  }
+  .ros-captain {
+    position: absolute; top: 16px; left: 16px;
+    padding: 4px 8px; background: var(--red); color: var(--cream);
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+  }
+  .ros-portrait {
+    flex: 1; margin: 60px 16px 16px;
+    background: rgba(241,230,204,0.04);
+    background-image: radial-gradient(rgba(201,163,91,0.18) 1px, transparent 1px);
+    background-size: 4px 4px;
+    border: 1px dashed rgba(201,163,91,0.3);
+    display: grid; place-items: center;
+  }
+  .ros-name-plate {
+    padding: 12px 16px 16px;
+    border-top: 1px solid rgba(201,163,91,0.3);
+    background: var(--navy-deep);
+  }
+  .ros-pos {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase;
+  }
+  .ros-name {
+    font-family: var(--font-display); font-size: 20px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    margin-top: 4px; line-height: 1; color: var(--cream);
+  }
+  .ros-back {
+    transform: rotateY(180deg);
+    background: var(--cream-soft); color: var(--navy);
+    border: 1px solid var(--gold);
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .ros-back-meta { font-family: var(--font-display); font-size: 14px; letter-spacing: 0.2em; color: var(--accent); }
+  .ros-back-name { font-family: var(--font-serif); font-style: italic; font-size: 22px; line-height: 1.1; }
+  .ros-detail-grid {
+    display: grid; gap: 10px;
+    font-size: 13px; font-family: var(--font-mono);
+  }
+  .ros-detail-label {
+    color: var(--fg-muted); letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 10px;
+  }
+  .ros-returning {
+    margin-top: auto; padding: 8px 12px;
+    background: var(--navy); color: var(--gold);
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase; text-align: center;
+  }
+  .coaches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .coach-role {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase;
+  }
+  .coach-name {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 28px; line-height: 1.1; margin-top: 12px;
+  }
+  .coach-note { margin-top: 14px; font-size: 16px; line-height: 1.55; color: var(--ink-soft); }
+</style>
+
+<script>
+  const cards = document.querySelectorAll<HTMLElement>('.ros-card');
+  cards.forEach((c) => c.addEventListener('click', () => c.classList.toggle('is-flipped')));
+
+  const btns = document.querySelectorAll<HTMLButtonElement>('.ros-btn');
+  const counter = document.getElementById('ros-visible');
+  btns.forEach((b) => {
+    b.addEventListener('click', () => {
+      btns.forEach((x) => x.classList.remove('is-active'));
+      b.classList.add('is-active');
+      const f = b.dataset.filter;
+      let visible = 0;
+      cards.forEach((c) => {
+        const grp = c.dataset.group;
+        const ret = c.dataset.returning === '1';
+        let show = true;
+        if (f === 'P') show = grp === 'P';
+        else if (f === 'C') show = grp === 'C';
+        else if (f === 'IF') show = grp === 'IF';
+        else if (f === 'OF') show = grp === 'OF';
+        else if (f === 'return') show = ret;
+        c.classList.toggle('is-hidden', !show);
+        if (show) visible++;
+      });
+      if (counter) counter.textContent = String(visible);
+    });
+  });
+</script>

@@ -1,0 +1,780 @@
+---
+import Base from '../layouts/Base.astro';
+import { DECADES, FIGURES } from '../data/decades.ts';
+import { SPONSOR_WALL_PREMIER, SPONSOR_WALL_SUPPORTING } from '../data/sponsors.ts';
+
+const upcoming = [
+  { date: 'Jun 26', day: 'Fri', time: '7:30 PM', opp: 'Loretto Larks', home: true, tag: '★ Centennial Weekend', note: '100-Year Celebration · Night 1' },
+  { date: 'Jun 27', day: 'Sat', time: '5:00 PM', opp: 'Hawks Alumni', home: true, tag: 'Exhibition', note: 'Old-Timers Game · Centennial' },
+  { date: 'Jun 28', day: 'Sun', time: '2:00 PM', opp: 'Loretto Larks', home: true, tag: '★ 100 Year Game', note: 'Official Anniversary Game · MBA designated' },
+  { date: 'Jul 04', day: 'Sat', time: '1:00 PM', opp: 'Maple Plain Lakers', home: true, tag: 'Class B', note: 'Independence Day' },
+];
+
+const next = {
+  date: 'Fri, May 22',
+  time: '7:30 PM',
+  opponent: 'Maple Plain Lakers',
+  home: true,
+  league: 'Class B · NSL',
+  note: 'Centennial Season Opener',
+};
+
+const allSponsors = [...SPONSOR_WALL_PREMIER, ...SPONSOR_WALL_SUPPORTING];
+---
+<Base title="Hamel Hawks · A Century of Town Ball · 1926–2026" page="home">
+  <!-- ================== HERO ================== -->
+  <section class="hero" data-screen-label="01 Hero">
+    <div class="hero-inner">
+      <div class="hero-left fade-up">
+        <div class="hero-years">★ &nbsp; A Century of Hamel Baseball</div>
+        <h1 class="hero-title">
+          One <span class="red">Hundred</span><br />
+          <span class="gold">Summers.</span>
+        </h1>
+        <p class="hero-sub">
+          Since 1926, the Hawks have taken the field for Hamel, Minnesota.
+          One ballpark. Ten decades. A town that never stopped playing.
+        </p>
+        <div class="hero-cta">
+          <a href="/schedule" class="btn btn-gold">See the 2026 Schedule</a>
+          <a href="#history" class="btn btn-ghost">Read Our Story →</a>
+        </div>
+
+        <!-- next game ticker -->
+        <div class="next-game-card" style="margin-top:54px; max-width: 520px;">
+          <div class="ng-head">
+            <span>● Next Game</span>
+            <span class="ng-league">{next.league}</span>
+          </div>
+          <div class="ng-grid">
+            <div class="ng-date">
+              <div class="ng-day">{next.date.split(',')[0].toUpperCase()}</div>
+              <div class="ng-num">{next.date.split(' ')[2]}</div>
+              <div class="ng-mon">{next.date.split(' ')[1]}</div>
+            </div>
+            <div>
+              <div class="ng-matchup">{next.home ? 'vs.' : 'at'} {next.opponent}</div>
+              <div class="ng-meta">{next.time} · {next.note}</div>
+            </div>
+            <a href="/schedule" class="btn btn-ghost" style="padding: 10px 14px; font-size: 12px;">Details →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div id="century-monogram">
+          <svg viewBox="0 0 600 600" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+            <defs>
+              <radialGradient id="haloGlow" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0%" stop-color="rgba(201,163,91,0.35)" />
+                <stop offset="50%" stop-color="rgba(201,163,91,0.1)" />
+                <stop offset="100%" stop-color="rgba(201,163,91,0)" />
+              </radialGradient>
+            </defs>
+            <circle cx="300" cy="300" r="280" fill="url(#haloGlow)" />
+            <g class="ring-spin">
+              <circle cx="300" cy="300" r="278" fill="none" stroke="rgba(201,163,91,0.35)" stroke-width="1" stroke-dasharray="2 8" />
+              <text x="300" y="26" text-anchor="middle" font-family="Anton, sans-serif" font-size="16" fill="#E0B852" letter-spacing="2">★</text>
+              <text x="578" y="304" text-anchor="middle" font-family="Anton, sans-serif" font-size="16" fill="#E0B852" letter-spacing="2">★</text>
+              <text x="300" y="582" text-anchor="middle" font-family="Anton, sans-serif" font-size="16" fill="#E0B852" letter-spacing="2">★</text>
+              <text x="22" y="304" text-anchor="middle" font-family="Anton, sans-serif" font-size="16" fill="#E0B852" letter-spacing="2">★</text>
+            </g>
+          </svg>
+          <div class="monogram-logo">
+            <img src="/assets/logo-100.png" alt="Hamel Hawks 100 Year Anniversary" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- bottom scoreline -->
+    <div class="hero-scoreline">
+      <div class="hero-scoreline-inner">
+        <span><span style="color: var(--gold)">●</span> Live · Centennial Season</span>
+        <span style="flex: 1; text-align: center;">Paul Fortin Memorial Field · Hamel, MN</span>
+        <span>Scroll ↓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== INTRO ================== -->
+  <section class="section section-paper" data-screen-label="02 Intro">
+    <div class="wrap">
+      <div class="intro-grid">
+        <div>
+          <div class="eyebrow">About the Hawks</div>
+          <h2 class="headline" style="margin-top: 18px;">
+            Town ball, played the right way — <em>for a hundred years and counting.</em>
+          </h2>
+        </div>
+        <div>
+          <p style="font-size: 19px; line-height: 1.65; color: var(--ink-soft);">
+            The Hamel Hawks are a town ball team based in Hamel, Minnesota — a small-town gem
+            just west of the Twin Cities along Highway 55. Drawing talent from across the west metro,
+            the Hawks blend Division 1 college athletes with seasoned veterans who live for the crack of the bat.
+          </p>
+          <p style="font-size: 19px; line-height: 1.65; color: var(--ink-soft); margin-top: 18px;">
+            We're committed to developing young players, playing baseball the right way,
+            and building a sense of pride for Hamel and surrounding towns like Medina and Maple Grove.
+            <strong>New in 2025</strong> — the Hawks compete as a Class B team in the North Star League.
+          </p>
+
+          <div class="stat-strip">
+            <div>
+              <div class="century" style="font-size: 56px; color: var(--accent);">100</div>
+              <div class="tag stat-label">Years on the diamond</div>
+            </div>
+            <div>
+              <div class="century" style="font-size: 56px; color: var(--navy);">3</div>
+              <div class="tag stat-label">Championship banners</div>
+            </div>
+            <div>
+              <div class="century" style="font-size: 56px; color: var(--navy);">2</div>
+              <div class="tag stat-label">MLB alumni</div>
+            </div>
+            <div>
+              <div class="century" style="font-size: 56px; color: var(--accent-2);">1</div>
+              <div class="tag stat-label">National title · 1993</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== TIMELINE ================== -->
+  <section class="section section-dark" id="history" data-screen-label="03 History" style="padding: 120px 0 60px;">
+    <div class="wrap-wide">
+      <div style="text-align: center; max-width: 820px; margin: 0 auto 60px;">
+        <div class="eyebrow" style="justify-content: center;">1926 — 2026</div>
+        <h2 class="headline" style="margin-top: 18px; color: var(--cream);">
+          A century of Hawks baseball, <em>told one summer at a time.</em>
+        </h2>
+        <p class="lede" style="margin: 28px auto 0;">
+          Three championship banners. A five-time World Series Yankee in the dugout.
+          Future big-leaguers on the field. A hardware-store owner who built the park.
+          And one quiet summer in 2011 when the lineup card couldn't be filled —
+          until a 13-year-old bat boy, by then a 45-year man of the program,
+          decided it would.
+        </p>
+      </div>
+
+      <!-- Championship banners -->
+      <div class="banner-row">
+        <div class="banner banner-state">
+          <div class="banner-cat">Class B State</div>
+          <div class="century banner-year">1987</div>
+          <div class="banner-tag">★ CHAMPIONS</div>
+        </div>
+        <div class="banner banner-national">
+          <div class="banner-cat">National · Class B World Series</div>
+          <div class="century banner-year">1993</div>
+          <div class="banner-tag">★ ★ ★ CHAMPIONS</div>
+        </div>
+        <div class="banner banner-state">
+          <div class="banner-cat">Class B State</div>
+          <div class="century banner-year">1997</div>
+          <div class="banner-tag">★ CHAMPIONS</div>
+        </div>
+      </div>
+
+      <!-- History video -->
+      <div class="video-block">
+        <div class="video-header">
+          <div>
+            <div class="video-kicker">Watch</div>
+            <h3 class="video-title">A History of the Hamel Hawks</h3>
+          </div>
+          <a href="https://www.youtube.com/watch?v=SKzcQU1lHwI" target="_blank" rel="noopener" class="video-link">Watch on YouTube ↗</a>
+        </div>
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/SKzcQU1lHwI?rel=0"
+            title="A History of the Hamel Hawks"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="video-credit">
+          Produced by Shane Pantila · distributed by FOX 9 Minneapolis–St. Paul
+        </div>
+      </div>
+
+      <div class="timeline-container">
+        {DECADES.map((d, i) => {
+          const left = i % 2 === 0;
+          const chipClass = d.isFinale || d.isPeak ? 'chip-gold' : d.isChampionship ? 'chip-red' : 'chip-default';
+          const cardClass = [
+            'tl-card',
+            d.isPeak ? 'tl-card-peak' : '',
+            d.isChampionship ? 'tl-card-champ' : '',
+            (d.isFinale || d.isFounding) && !d.isPeak ? 'tl-card-highlight' : '',
+            d.isDark ? 'tl-card-dark' : '',
+          ].filter(Boolean).join(' ');
+          return (
+            <div class="timeline-row" data-visible="false">
+              <div class="tl-left">
+                {left && (
+                  <div class={cardClass}>
+                    <div class="tl-meta">{d.years} · {d.accent}</div>
+                    <h3 class="tl-title">{d.title}</h3>
+                    <p class="tl-body">{d.body}</p>
+                    {d.quote && (
+                      <blockquote class="tl-quote">
+                        {d.quote}
+                        {d.quoteAttr && <div class="tl-quote-attr">— {d.quoteAttr}</div>}
+                      </blockquote>
+                    )}
+                    {d.isFinale && <div class="tl-here">★ You are here</div>}
+                  </div>
+                )}
+              </div>
+              <div class="tl-spine">
+                <div class="tl-line"></div>
+                <div class={`tl-chip ${chipClass}`}>{d.decade}</div>
+              </div>
+              <div class="tl-right">
+                {!left && (
+                  <div class={cardClass}>
+                    <div class="tl-meta">{d.years} · {d.accent}</div>
+                    <h3 class="tl-title">{d.title}</h3>
+                    <p class="tl-body">{d.body}</p>
+                    {d.quote && (
+                      <blockquote class="tl-quote">
+                        {d.quote}
+                        {d.quoteAttr && <div class="tl-quote-attr">— {d.quoteAttr}</div>}
+                      </blockquote>
+                    )}
+                    {d.isFinale && <div class="tl-here">★ You are here</div>}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== NOTABLE FIGURES ================== -->
+  <section class="section section-deep" data-screen-label="04 Figures" style="padding: 100px 0;">
+    <div class="wrap-wide">
+      <div style="text-align: center; max-width: 720px; margin: 0 auto 60px;">
+        <div class="eyebrow" style="color: var(--gold); justify-content: center;">The 100-Year Roll Call</div>
+        <h2 class="headline" style="color: var(--cream); margin-top: 16px;">
+          The names <em>on the wall.</em>
+        </h2>
+      </div>
+      <div class="figures-grid">
+        {FIGURES.map((f) => (
+          <div class={`figure-card ${f.isFeatured ? 'figure-featured' : ''}`}>
+            <div class={`figure-role ${f.isFeatured ? 'figure-role-feat' : ''}`}>{f.role}</div>
+            <div class="figure-name">{f.name}</div>
+            <div class={`figure-span ${f.isFeatured ? 'figure-span-feat' : ''}`}>{f.span}</div>
+            <p class="figure-body">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== UPCOMING GAMES ================== -->
+  <section class="section" data-screen-label="04 Next Games" style="background: var(--bg-alt);">
+    <div class="wrap">
+      <div class="up-head">
+        <div>
+          <div class="eyebrow">Upcoming · 2026</div>
+          <h2 class="headline" style="margin-top: 16px;">The next at-bats.</h2>
+        </div>
+        <a href="/schedule" class="btn" style="color: var(--navy); border-color: var(--navy);">Full Schedule →</a>
+      </div>
+      <div class="upcoming-grid">
+        {upcoming.map((g, i) => (
+          <div class={`game-card ${i === 0 ? 'game-card-feat' : ''}`}>
+            <div class="gc-tag">
+              <span>{g.tag}</span>
+              <span style="opacity: 0.6">{g.home ? 'HOME' : 'AWAY'}</span>
+            </div>
+            <div class="gc-date">
+              <div class="gc-day">{g.day.toUpperCase()}</div>
+              <div class="gc-num">{g.date}</div>
+            </div>
+            <div class="gc-matchup">{g.home ? 'vs.' : 'at'} {g.opp}</div>
+            <div class="gc-meta">{g.time} · {g.note}</div>
+            <div class="gc-foot">
+              <span>Fortin Field</span>
+              <span class="gc-arrow">Details →</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== FIELD ================== -->
+  <section class="section section-deep" data-screen-label="05 Field" style="padding: 0;">
+    <div class="field-grid">
+      <div class="field-copy">
+        <div class="eyebrow" style="color: var(--gold);">Paul Fortin Memorial Field</div>
+        <h2 class="headline" style="margin-top: 18px; color: var(--cream);">
+          A century-old ballpark, <em>built for the next hundred summers.</em>
+        </h2>
+        <p class="lede" style="margin-top: 28px;">
+          From new seating to expanded facilities, we've poured heart into upgrading
+          Paul Fortin Memorial Field — making every game a must-see event for families
+          and baseball fans across the west metro.
+        </p>
+        <div style="margin-top: 38px;">
+          <a href="/field" class="btn btn-gold">Tour the Field →</a>
+        </div>
+        <div class="field-stats">
+          <div>
+            <div class="century" style="font-size: 44px; color: var(--gold);">325'</div>
+            <div class="tag tag-cream" style="margin-top: 6px; border: 0; padding: 0;">Down the lines</div>
+          </div>
+          <div>
+            <div class="century" style="font-size: 44px; color: var(--gold);">400'</div>
+            <div class="tag tag-cream" style="margin-top: 6px; border: 0; padding: 0;">Dead center</div>
+          </div>
+          <div>
+            <div class="century" style="font-size: 44px; color: var(--gold);">'58</div>
+            <div class="tag tag-cream" style="margin-top: 6px; border: 0; padding: 0;">Year dedicated</div>
+          </div>
+        </div>
+      </div>
+      <div class="field-photo">
+        <div class="field-photo-caption">
+          <span>★ Fortin Field</span>
+          <span>Hamel, MN · 55340</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== SPONSORS ================== -->
+  <section class="section section-paper" data-screen-label="06 Sponsors">
+    <div class="wrap">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <div class="eyebrow" style="justify-content: center;">Centennial Partners</div>
+        <h2 class="headline" style="margin-top: 16px;">A century of supporters.</h2>
+        <p class="lede" style="margin: 18px auto 0;">
+          These local businesses make 100 years of Hawks baseball possible.
+        </p>
+      </div>
+      <div class="sponsor-wall">
+        {allSponsors.map((s) => (
+          <a href={s.url} target="_blank" rel="noopener" class="sw-tile">
+            <div class={`sw-tier ${s.tier === 'Premier' ? 'sw-tier-premier' : 'sw-tier-supporting'}`}>★ {s.tier} Partner</div>
+            <div class="sw-name">{s.name}</div>
+            <div class="sw-arrow">Visit →</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== JOIN ================== -->
+  <section class="section section-dark" data-screen-label="07 Join" style="background: var(--navy-deep); text-align: center;">
+    <div class="wrap" style="max-width: 920px;">
+      <div class="century" style="font-size: clamp(120px, 18vw, 240px); color: var(--gold); text-align: center; letter-spacing: -0.06em;">100</div>
+      <h2 class="headline" style="color: var(--cream); margin-top: -20px;">
+        The next chapter <em>starts at the gates.</em>
+      </h2>
+      <p class="lede" style="margin: 30px auto 38px;">
+        Bring the family. Bring a friend. Be part of the team that's been
+        playing Hamel baseball for a hundred years — and counting.
+      </p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="/schedule" class="btn btn-gold">2026 Schedule</a>
+        <a href="/shop" class="btn btn-ghost">Centennial Merch</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero scoreline */
+  .hero-scoreline {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+    border-top: 1px solid rgba(201,163,91,0.25);
+    background: rgba(8, 21, 42, 0.6);
+    backdrop-filter: blur(6px);
+  }
+  .hero-scoreline-inner {
+    max-width: 1600px; margin: 0 auto;
+    padding: 14px var(--gutter);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: rgba(241,230,204,0.65);
+    gap: 20px; flex-wrap: wrap;
+  }
+
+  /* Century monogram */
+  #century-monogram {
+    position: relative;
+    width: 100%; max-width: 640px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    perspective: 1200px;
+  }
+  @keyframes ringSpin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+  .ring-spin { transform-origin: 300px 300px; animation: ringSpin 60s linear infinite; }
+  .monogram-logo {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    transform: rotateY(0) rotateX(0);
+    transform-style: preserve-3d;
+    transition: transform 250ms ease-out;
+  }
+  .monogram-logo img {
+    width: 78%; height: auto;
+    filter: drop-shadow(0 12px 30px rgba(0,0,0,0.45)) drop-shadow(0 0 30px rgba(255,255,255,0.08));
+  }
+
+  /* Next-game card */
+  .next-game-card {
+    background: rgba(241,230,204,0.06);
+    border: 1px solid rgba(201,163,91,0.3);
+    padding: 20px 24px;
+    backdrop-filter: blur(6px);
+  }
+  .ng-head {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+  }
+  .ng-league { color: rgba(241,230,204,0.5); }
+  .ng-grid {
+    display: grid; grid-template-columns: auto 1fr auto;
+    gap: 20px; align-items: center;
+  }
+  .ng-date { text-align: center; }
+  .ng-day { font-family: var(--font-display); font-size: 14px; color: var(--gold); letter-spacing: 0.18em; }
+  .ng-num { font-family: var(--font-display); font-size: 36px; color: var(--cream); line-height: 1; }
+  .ng-mon { font-family: var(--font-display); font-size: 14px; color: var(--cream); letter-spacing: 0.18em; }
+  .ng-matchup { font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--cream); line-height: 1.15; }
+  .ng-meta { font-family: var(--font-mono); font-size: 12px; color: rgba(241,230,204,0.65); letter-spacing: 0.16em; margin-top: 6px; }
+
+  /* Intro */
+  .intro-grid {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 80px; align-items: start;
+  }
+  @media (max-width: 880px) {
+    .intro-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+  .stat-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px; margin-top: 44px;
+    padding: 32px 0;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  @media (max-width: 600px) {
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+  .stat-label { border: 0; padding: 0; color: var(--fg-muted); margin-top: 6px; }
+
+  /* Championship banners */
+  .banner-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14px; max-width: 760px; margin: 0 auto 80px;
+    padding: 0 var(--gutter);
+  }
+  @media (max-width: 640px) { .banner-row { grid-template-columns: 1fr; } }
+  .banner { padding: 20px 16px; text-align: center; }
+  .banner-state { background: rgba(214, 43, 38, 0.12); border: 1px solid rgba(214, 43, 38, 0.5); }
+  .banner-national {
+    background: rgba(201, 163, 91, 0.18); border: 1px solid var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,163,91,0.1);
+  }
+  .banner-cat {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.24em;
+    color: rgba(241,230,204,0.6); text-transform: uppercase;
+  }
+  .banner-year {
+    font-size: 48px; color: var(--cream); margin-top: 4px;
+    letter-spacing: -0.02em;
+  }
+  .banner-tag {
+    font-family: var(--font-display); font-size: 13px;
+    letter-spacing: 0.14em; color: var(--gold); margin-top: 4px;
+  }
+
+  /* History video */
+  .video-block { max-width: 900px; margin: 0 auto 80px; padding: 0 var(--gutter); }
+  .video-header {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
+  }
+  .video-kicker {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.24em; color: var(--gold); text-transform: uppercase;
+  }
+  .video-title {
+    font-family: var(--font-serif); font-style: italic;
+    font-weight: 500; font-size: 24px; color: var(--cream); margin-top: 4px;
+    text-transform: none; letter-spacing: -0.01em;
+  }
+  .video-link {
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.18em; color: var(--gold);
+  }
+  .video-frame {
+    position: relative; padding-top: 56.25%;
+    background: var(--navy-deep); border: 1px solid var(--gold);
+  }
+  .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video-credit {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.2em; color: rgba(241,230,204,0.5);
+    text-transform: uppercase; margin-top: 10px;
+  }
+
+  /* Timeline */
+  .timeline-container { width: 100%; }
+  .timeline-row {
+    display: grid; grid-template-columns: 1fr 120px 1fr;
+    gap: 0; align-items: start;
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 800ms ease-out, transform 800ms ease-out;
+  }
+  .timeline-row[data-visible="true"] { opacity: 1; transform: none; }
+  .tl-left { padding: 40px 40px 80px 0; text-align: right; }
+  .tl-right { padding: 40px 0 80px 40px; }
+  .tl-spine { position: relative; display: flex; justify-content: center; }
+  .tl-line {
+    position: absolute; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(180deg, rgba(201,163,91,0.4), rgba(201,163,91,0.6));
+  }
+  .tl-chip {
+    position: relative; margin-top: 30px;
+    padding: 10px 14px;
+    font-family: var(--font-display); font-size: 16px;
+    letter-spacing: 0.06em; text-align: center;
+    min-width: 90px; border: 1px solid var(--gold);
+  }
+  .chip-default { background: var(--navy-deep); color: var(--gold); }
+  .chip-red { background: var(--red); color: var(--cream); border-color: var(--red); box-shadow: 0 0 0 4px rgba(214,43,38,0.18); }
+  .chip-gold { background: var(--gold); color: var(--navy-deep); box-shadow: 0 0 0 6px rgba(201,163,91,0.2); }
+  .tl-card {
+    background: rgba(241,230,204,0.03);
+    border: 1px solid rgba(241,230,204,0.15);
+    padding: 32px 36px;
+    display: inline-block; max-width: 540px; text-align: left;
+  }
+  .tl-card-highlight { background: rgba(201,163,91,0.06); border-color: rgba(201,163,91,0.5); }
+  .tl-card-champ { background: rgba(214,43,38,0.08); border-color: rgba(214,43,38,0.6); }
+  .tl-card-peak { background: rgba(201,163,91,0.12); border-color: var(--gold); box-shadow: 0 0 0 4px rgba(201,163,91,0.12); }
+  .tl-card-dark { background: rgba(0,0,0,0.25); }
+  .tl-meta {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: rgba(241,230,204,0.5); margin-bottom: 14px;
+  }
+  .tl-card-highlight .tl-meta, .tl-card-peak .tl-meta { color: var(--gold); }
+  .tl-card-champ .tl-meta { color: #F5A6A2; }
+  .tl-title {
+    font-family: var(--font-serif); font-style: italic; font-weight: 500;
+    font-size: 28px; color: var(--cream); line-height: 1.12;
+    text-transform: none; letter-spacing: -0.01em;
+  }
+  .tl-card-peak .tl-title { font-size: 32px; }
+  .tl-body {
+    font-family: var(--font-serif); font-size: 16px; line-height: 1.6;
+    color: rgba(241,230,204,0.82); margin-top: 14px;
+  }
+  .tl-quote {
+    margin-top: 20px; padding-left: 18px;
+    border-left: 2px solid var(--gold);
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 17px; line-height: 1.45;
+    color: rgba(241,230,204,0.92);
+  }
+  .tl-quote-attr {
+    margin-top: 8px;
+    font-family: var(--font-mono); font-style: normal;
+    font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: rgba(241,230,204,0.5);
+  }
+  .tl-here {
+    margin-top: 22px; display: flex; align-items: center; gap: 12px;
+    color: var(--gold); font-family: var(--font-display);
+    font-size: 14px; letter-spacing: 0.18em;
+  }
+  @media (max-width: 820px) {
+    .timeline-row { grid-template-columns: 60px 1fr; }
+    .tl-left { display: none; }
+    .tl-right { padding: 20px 0 50px 28px; }
+  }
+
+  /* Figures */
+  .figures-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .figure-card {
+    background: rgba(241,230,204,0.04);
+    border: 1px solid rgba(241,230,204,0.15);
+    padding: 28px 28px 26px;
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative; min-height: 280px;
+  }
+  .figure-featured {
+    background: rgba(201,163,91,0.12);
+    border-color: var(--gold);
+  }
+  .figure-role {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: rgba(241,230,204,0.55);
+  }
+  .figure-role-feat { color: var(--gold); }
+  .figure-name {
+    font-family: var(--font-serif); font-style: italic; font-weight: 500;
+    font-size: 24px; color: var(--cream); line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+  .figure-span {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(201,163,91,0.7); margin-bottom: 4px;
+  }
+  .figure-span-feat { color: var(--gold); }
+  .figure-body {
+    font-family: var(--font-serif); font-size: 14.5px;
+    line-height: 1.55; color: rgba(241,230,204,0.78);
+  }
+
+  /* Upcoming */
+  .up-head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 50px; flex-wrap: wrap; gap: 20px;
+  }
+  .upcoming-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+  }
+  .game-card {
+    position: relative; padding: 28px 28px 24px;
+    background: var(--cream-soft); color: var(--navy);
+    border: 1px solid var(--rule);
+    transition: transform 200ms, box-shadow 200ms;
+    cursor: pointer;
+  }
+  .game-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(14,31,58,0.15); }
+  .game-card-feat { background: var(--navy); color: var(--cream); border-color: var(--gold); }
+  .gc-tag {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.24em;
+    color: var(--red); text-transform: uppercase; margin-bottom: 18px;
+    display: flex; justify-content: space-between;
+  }
+  .game-card-feat .gc-tag { color: var(--gold); }
+  .gc-date { display: flex; align-items: baseline; gap: 16px; margin-bottom: 18px; }
+  .gc-day { font-family: var(--font-display); font-size: 14px; letter-spacing: 0.18em; opacity: 0.7; }
+  .gc-num { font-family: var(--font-display); font-size: 48px; line-height: 1; letter-spacing: -0.02em; }
+  .gc-matchup {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 24px; line-height: 1.15; margin-bottom: 8px;
+  }
+  .gc-meta { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; opacity: 0.65; }
+  .gc-foot {
+    margin-top: 22px; padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-display); font-size: 12px; letter-spacing: 0.14em;
+  }
+  .game-card-feat .gc-foot { border-top-color: rgba(201,163,91,0.25); }
+  .gc-arrow { color: var(--red); }
+  .game-card-feat .gc-arrow { color: var(--gold); }
+
+  /* Field section */
+  .field-grid {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 560px;
+  }
+  @media (max-width: 880px) {
+    .field-grid { grid-template-columns: 1fr; }
+  }
+  .field-copy {
+    padding: 100px var(--gutter);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .field-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; margin-top: 56px;
+    border-top: 1px solid var(--rule-on-dark);
+    padding-top: 30px;
+  }
+  .field-photo {
+    position: relative; min-height: 480px;
+    background-image: url('/assets/field-drone.avif');
+    background-size: cover; background-position: center;
+  }
+  .field-photo-caption {
+    position: absolute; bottom: 20px; left: 20px; right: 20px;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.2em; color: var(--cream); text-transform: uppercase;
+    opacity: 0.85; text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+    display: flex; justify-content: space-between;
+  }
+
+  /* Sponsor wall */
+  .sponsor-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    border: 1px solid var(--rule);
+  }
+  .sw-tile {
+    padding: 50px 30px;
+    border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    background: var(--cream-soft);
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 200px;
+    transition: background 160ms;
+  }
+  .sw-tile:hover { background: rgba(201,163,91,0.1); }
+  .sw-tier {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+  }
+  .sw-tier-premier { color: var(--accent); }
+  .sw-tier-supporting { color: var(--navy); opacity: 0.5; }
+  .sw-name {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 22px; line-height: 1.2; color: var(--navy);
+  }
+  .sw-arrow {
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.18em; color: var(--accent);
+  }
+</style>
+
+<script>
+  // Monogram parallax tilt
+  const mono = document.querySelector('#century-monogram .monogram-logo') as HTMLElement | null;
+  if (mono && window.matchMedia('(pointer: fine)').matches) {
+    window.addEventListener('mousemove', (e) => {
+      const rect = (mono.parentElement as HTMLElement).getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / rect.width;
+      const dy = (e.clientY - cy) / rect.height;
+      mono.style.transform = `rotateY(${dx * 5}deg) rotateX(${-dy * 5}deg)`;
+    });
+  }
+
+  // Timeline fade-in on scroll
+  const rows = document.querySelectorAll<HTMLElement>('.timeline-row');
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).dataset.visible = 'true';
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  rows.forEach((row) => obs.observe(row));
+</script>

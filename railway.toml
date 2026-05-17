@@ -1,0 +1,13 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm run build"
+
+[build.nixpacks]
+nixPkgsArchive = "nixpkgs-unstable"
+
+[deploy]
+startCommand = "npm run start"
+healthcheckPath = "/healthz"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3

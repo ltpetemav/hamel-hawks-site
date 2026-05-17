@@ -1,0 +1,230 @@
+---
+import Base from '../layouts/Base.astro';
+import { HITTING, PITCHING, fmt3 } from '../data/stats.ts';
+---
+<Base title="Stats · Hamel Hawks 2026" page="stats">
+  <section class="section section-dark page-hero" style="padding: 80px 0 60px;">
+    <div class="wrap">
+      <div class="eyebrow" style="color: var(--gold);">2026 Statistics · Through May</div>
+      <h1 class="display" style="color: var(--cream); margin-top: 18px;">
+        The <span style="color: var(--gold); font-style: italic; font-family: var(--font-serif); font-weight: 500; text-transform: none; letter-spacing: -0.01em;">Numbers.</span>
+      </h1>
+      <p class="lede" style="margin-top: 24px; max-width: 65ch;">
+        Click any column header to sort. Hawks are 11–3 across both classes through the first 14 games.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 60px 0;">
+    <div class="wrap">
+      <div class="eyebrow">Team Leaders</div>
+      <h2 class="headline" style="margin-top: 14px; margin-bottom: 36px;">Who's <em>doing the damage.</em></h2>
+      <div class="leaders-grid">
+        <div class="leader-card">
+          <div class="leader-cat">Avg</div>
+          <div class="leader-value-row"><span class="century leader-value">.404</span></div>
+          <div class="divider leader-divider"></div>
+          <div class="leader-name">Jack O'Brien</div>
+          <div class="leader-pos">CF · #3</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-cat">Home Runs</div>
+          <div class="leader-value-row"><span class="century leader-value">5</span></div>
+          <div class="divider leader-divider"></div>
+          <div class="leader-name">Sam Larsson</div>
+          <div class="leader-pos">1B · #10</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-cat">RBI</div>
+          <div class="leader-value-row"><span class="century leader-value">19</span></div>
+          <div class="divider leader-divider"></div>
+          <div class="leader-name">Sam Larsson</div>
+          <div class="leader-pos">1B · #10</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-cat">Strikeouts</div>
+          <div class="leader-value-row"><span class="century leader-value">41</span></div>
+          <div class="divider leader-divider"></div>
+          <div class="leader-name">Will Ahlberg</div>
+          <div class="leader-pos">P · #24</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-cat">ERA</div>
+          <div class="leader-value-row"><span class="century leader-value">2.23</span></div>
+          <div class="divider leader-divider"></div>
+          <div class="leader-name">Will Ahlberg</div>
+          <div class="leader-pos">P · #24</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 0 0 60px; background: var(--cream-soft);">
+    <div class="wrap">
+      <div class="eyebrow" style="padding-top: 60px;">Hitting</div>
+      <h2 class="headline" style="margin: 14px 0 24px;">The <em>bat list.</em></h2>
+      <div style="overflow-x: auto;">
+        <table class="table stat-table" id="hit-table" style="min-width: 800px;">
+          <thead>
+            <tr>
+              <th data-key="name" data-type="str">Player</th>
+              <th data-key="pos" data-type="str" style="text-align: center;">Pos</th>
+              <th data-key="g" data-type="num" style="text-align: right;">G</th>
+              <th data-key="ab" data-type="num" style="text-align: right;">AB</th>
+              <th data-key="r" data-type="num" style="text-align: right;">R</th>
+              <th data-key="h" data-type="num" style="text-align: right;">H</th>
+              <th data-key="hr" data-type="num" style="text-align: right;">HR</th>
+              <th data-key="rbi" data-type="num" style="text-align: right;">RBI</th>
+              <th data-key="sb" data-type="num" style="text-align: right;">SB</th>
+              <th data-key="avg" data-type="num" data-default="1" style="text-align: right;">AVG ↓</th>
+              <th data-key="obp" data-type="num" style="text-align: right;">OBP</th>
+              <th data-key="slg" data-type="num" style="text-align: right;">SLG</th>
+            </tr>
+          </thead>
+          <tbody>
+            {HITTING.map((h) => (
+              <tr>
+                <td>{h.name}</td>
+                <td style="text-align: center;">{h.pos}</td>
+                <td style="text-align: right;">{h.g}</td>
+                <td style="text-align: right;">{h.ab}</td>
+                <td style="text-align: right;">{h.r}</td>
+                <td style="text-align: right;">{h.h}</td>
+                <td style="text-align: right;">{h.hr}</td>
+                <td style="text-align: right;">{h.rbi}</td>
+                <td style="text-align: right;">{h.sb}</td>
+                <td style="text-align: right;" data-sort={h.avg}>{fmt3(h.avg)}</td>
+                <td style="text-align: right;" data-sort={h.obp}>{fmt3(h.obp)}</td>
+                <td style="text-align: right;" data-sort={h.slg}>{fmt3(h.slg)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 0 0 80px; background: var(--cream-soft);">
+    <div class="wrap">
+      <div class="eyebrow" style="padding-top: 60px;">Pitching</div>
+      <h2 class="headline" style="margin: 14px 0 24px;">The <em>arm list.</em></h2>
+      <div style="overflow-x: auto;">
+        <table class="table stat-table" id="pit-table" style="min-width: 800px;">
+          <thead>
+            <tr>
+              <th data-key="name" data-type="str">Pitcher</th>
+              <th data-key="g" data-type="num" style="text-align: right;">G</th>
+              <th data-key="w" data-type="num" style="text-align: right;">W</th>
+              <th data-key="l" data-type="num" style="text-align: right;">L</th>
+              <th data-key="sv" data-type="num" style="text-align: right;">SV</th>
+              <th data-key="ip" data-type="num" style="text-align: right;">IP</th>
+              <th data-key="h" data-type="num" style="text-align: right;">H</th>
+              <th data-key="er" data-type="num" style="text-align: right;">ER</th>
+              <th data-key="bb" data-type="num" style="text-align: right;">BB</th>
+              <th data-key="k" data-type="num" style="text-align: right;">K</th>
+              <th data-key="era" data-type="num" data-default="1" data-asc="1" style="text-align: right;">ERA ↑</th>
+              <th data-key="whip" data-type="num" style="text-align: right;">WHIP</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PITCHING.map((p) => (
+              <tr>
+                <td>{p.name}</td>
+                <td style="text-align: right;">{p.g}</td>
+                <td style="text-align: right;">{p.w}</td>
+                <td style="text-align: right;">{p.l}</td>
+                <td style="text-align: right;">{p.sv}</td>
+                <td style="text-align: right;" data-sort={p.ip}>{p.ip.toFixed(1)}</td>
+                <td style="text-align: right;">{p.h}</td>
+                <td style="text-align: right;">{p.er}</td>
+                <td style="text-align: right;">{p.bb}</td>
+                <td style="text-align: right;">{p.k}</td>
+                <td style="text-align: right;" data-sort={p.era}>{p.era.toFixed(2)}</td>
+                <td style="text-align: right;" data-sort={p.whip}>{p.whip.toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .leaders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .leader-card {
+    background: var(--navy); color: var(--cream);
+    padding: 32px 28px; border: 1px solid var(--gold);
+    position: relative;
+  }
+  .leader-cat {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.24em; color: var(--gold); text-transform: uppercase;
+  }
+  .leader-value-row { display: flex; align-items: baseline; gap: 6px; margin-top: 18px; }
+  .leader-value { font-size: 80px; color: var(--cream); line-height: 0.85; letter-spacing: -0.04em; }
+  .leader-divider { margin: 20px 0; background: rgba(201,163,91,0.3); }
+  .leader-name { font-family: var(--font-serif); font-style: italic; font-size: 20px; }
+  .leader-pos {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .stat-table th { cursor: pointer; user-select: none; }
+</style>
+
+<script>
+  function bindSort(tableId: string) {
+    const table = document.getElementById(tableId) as HTMLTableElement | null;
+    if (!table) return;
+    const tbody = table.querySelector('tbody') as HTMLTableSectionElement;
+    const ths = table.querySelectorAll<HTMLTableCellElement>('thead th');
+    const state: { key: string; asc: boolean; type: string } = { key: '', asc: false, type: 'num' };
+
+    function sortBy(idx: number, key: string, type: string, asc: boolean) {
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      rows.sort((a, b) => {
+        const av = a.children[idx] as HTMLElement;
+        const bv = b.children[idx] as HTMLElement;
+        if (type === 'num') {
+          const aval = parseFloat(av.dataset.sort ?? av.textContent ?? '0');
+          const bval = parseFloat(bv.dataset.sort ?? bv.textContent ?? '0');
+          return asc ? aval - bval : bval - aval;
+        }
+        const ax = av.textContent ?? '';
+        const bx = bv.textContent ?? '';
+        return asc ? ax.localeCompare(bx) : bx.localeCompare(ax);
+      });
+      rows.forEach((r) => tbody.appendChild(r));
+      ths.forEach((h) => {
+        const label = h.textContent?.replace(/ [↑↓]$/, '') ?? '';
+        h.textContent = h.dataset.key === key ? `${label} ${asc ? '↑' : '↓'}` : label;
+      });
+    }
+
+    ths.forEach((th, idx) => {
+      th.addEventListener('click', () => {
+        const key = th.dataset.key || '';
+        const type = th.dataset.type || 'num';
+        const asc = state.key === key ? !state.asc : (type === 'num' ? false : true);
+        state.key = key;
+        state.asc = asc;
+        state.type = type;
+        sortBy(idx, key, type, asc);
+      });
+      if (th.dataset.default === '1') {
+        const asc = th.dataset.asc === '1';
+        state.key = th.dataset.key || '';
+        state.asc = asc;
+        state.type = th.dataset.type || 'num';
+        sortBy(idx, state.key, state.type, asc);
+      }
+    });
+  }
+  bindSort('hit-table');
+  bindSort('pit-table');
+</script>

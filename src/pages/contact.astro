@@ -1,0 +1,136 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Contact · Hamel Hawks" page="contact">
+  <section class="section section-dark page-hero" style="padding: 80px 0 50px;">
+    <div class="wrap">
+      <div class="eyebrow" style="color: var(--gold);">Get in Touch</div>
+      <h1 class="display" style="color: var(--cream); margin-top: 18px;">
+        Drop us a<br />
+        <span style="color: var(--gold); font-style: italic; font-family: var(--font-serif); font-weight: 500; text-transform: none; letter-spacing: -0.01em;">line.</span>
+      </h1>
+      <p class="lede" style="margin-top: 24px;">
+        Tickets, sponsorships, tryouts, alumni reunions, or just to say hello —
+        the door is open.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 80px 0 100px; background: var(--cream-soft);">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <h2 class="century" style="font-size: 56px; color: var(--navy);">SEND A MESSAGE</h2>
+          <p style="margin-top: 12px; color: var(--fg-muted); font-size: 16px;">Greg will get back to you within a day or two.</p>
+          <form id="contact-form" style="margin-top: 30px; display: grid; gap: 18px;">
+            <label class="field"><span>Name</span><input name="name" type="text" required /></label>
+            <label class="field"><span>Email</span><input name="email" type="email" required /></label>
+            <label class="field">
+              <span>Reason</span>
+              <select name="reason">
+                <option>General question</option>
+                <option>Tickets · Group seating</option>
+                <option>Sponsorship inquiry</option>
+                <option>Tryouts · Roster</option>
+                <option>Alumni · Reunion</option>
+                <option>Press · Media</option>
+              </select>
+            </label>
+            <label class="field"><span>Message</span><textarea name="message" rows="6" required></textarea></label>
+            <button type="submit" class="btn btn-primary" style="justify-self: start;">Send Message →</button>
+          </form>
+        </div>
+
+        <div>
+          <h2 class="century" style="font-size: 56px; color: var(--navy);">DIRECT LINE</h2>
+          <div style="margin-top: 30px; display: grid; gap: 16px;">
+            <a href="mailto:gregd.hamelhawks@gmail.com" class="card direct-card">
+              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              <div class="direct-kicker">★ Email</div>
+              <div class="direct-value">gregd.hamelhawks@gmail.com</div>
+              <div class="direct-note">Greg DeVos · General Manager</div>
+            </a>
+
+            <a href="tel:763-228-3136" class="card direct-card">
+              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              <div class="direct-kicker">★ Phone</div>
+              <div class="direct-value">(763) 228-3136</div>
+              <div class="direct-note">Voicemail OK · Will call back</div>
+            </a>
+
+            <a href="https://maps.app.goo.gl/T9fLnXeUDwcx6LxD8" target="_blank" rel="noopener" class="card direct-card">
+              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              <div class="direct-kicker">★ Find Us</div>
+              <div class="direct-value">Fortin Field</div>
+              <div class="direct-note">Hamel, MN 55340 · Open in Maps →</div>
+            </a>
+
+            <div class="card direct-card direct-social">
+              <div class="direct-kicker direct-kicker-gold">★ Follow Along</div>
+              <div style="display: flex; gap: 12px;">
+                <a href="https://www.instagram.com/hamelhawks/" target="_blank" rel="noopener" class="btn btn-ghost" style="padding: 10px 14px; font-size: 12px;">Instagram</a>
+                <a href="https://twitter.com/mnhamelhawks" target="_blank" rel="noopener" class="btn btn-ghost" style="padding: 10px 14px; font-size: 12px;">Twitter</a>
+                <a href="https://www.facebook.com/hamelhawks" target="_blank" rel="noopener" class="btn btn-ghost" style="padding: 10px 14px; font-size: 12px;">Facebook</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  }
+  @media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; gap: 50px; } }
+  .field { display: grid; gap: 6px; }
+  .field span {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; color: var(--fg-muted); text-transform: uppercase;
+  }
+  .field input, .field select, .field textarea {
+    padding: 14px 16px;
+    font: inherit;
+    font-family: var(--font-serif);
+    font-size: 17px;
+    background: var(--cream-soft);
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    color: var(--navy);
+    outline: none;
+    transition: border-color 160ms;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+  .direct-card { text-decoration: none; padding: 26px 28px; background: var(--cream-soft); display: block; }
+  .direct-kicker {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase;
+  }
+  .direct-kicker-gold { color: var(--gold); margin-bottom: 12px; }
+  .direct-value {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 24px; margin-top: 8px;
+  }
+  .direct-note {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--fg-muted); margin-top: 6px; letter-spacing: 0.1em;
+  }
+  .direct-social { background: var(--navy); color: var(--cream); border-color: var(--gold); }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const target = e.currentTarget as HTMLFormElement;
+    target.innerHTML = `
+      <div style="padding: 60px 32px; text-align: center; background: var(--cream-soft); border: 1px solid var(--gold);">
+        <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase;">★ Thanks</div>
+        <div style="font-family: var(--font-display); font-size: 80px; color: var(--accent-2); margin-top: 12px; letter-spacing: -0.04em;">100%</div>
+        <div style="font-family: var(--font-serif); font-style: italic; font-size: 24px; margin-top: 10px;">Message sent.</div>
+        <p style="margin-top: 14px; color: var(--fg-muted);">We'll be in touch soon.</p>
+      </div>`;
+  });
+</script>

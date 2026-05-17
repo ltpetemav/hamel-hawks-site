@@ -1,0 +1,134 @@
+---
+import Base from '../layouts/Base.astro';
+import { CLASS_B, CLASS_C, fmt3 } from '../data/stats.ts';
+
+const sortedB = [...CLASS_B].sort((a, b) => b.pct - a.pct || b.w - a.w);
+const sortedC = [...CLASS_C].sort((a, b) => b.pct - a.pct || b.w - a.w);
+---
+<Base title="Standings · Hamel Hawks · NSL 2026" page="standings">
+  <section class="section section-dark page-hero" style="padding: 80px 0 60px;">
+    <div class="wrap">
+      <div class="eyebrow" style="color: var(--gold);">North Star League · 2026</div>
+      <h1 class="display" style="color: var(--cream); margin-top: 18px;">
+        The <span style="color: var(--gold); font-style: italic; font-family: var(--font-serif); font-weight: 500; text-transform: none; letter-spacing: -0.01em;">Standings.</span>
+      </h1>
+      <p class="lede" style="margin-top: 24px; max-width: 65ch;">
+        Hawks lead Class B at 8–2. A half-game back of Plymouth in Class C.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 60px 0 80px;">
+    <div class="wrap" style="display: grid; gap: 60px;">
+      <div>
+        <div class="stand-head">
+          <h2 class="century" style="font-size: 56px; color: var(--navy); line-height: 0.9;">CLASS B</h2>
+          <span class="stand-meta">North Star League · 2026</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="table" style="width: 100%;">
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;">#</th>
+                <th>Team</th>
+                <th style="text-align: right;">W</th>
+                <th style="text-align: right;">L</th>
+                <th style="text-align: right;">PCT</th>
+                <th style="text-align: right;">GB</th>
+                <th style="text-align: right;">Strk</th>
+                <th style="text-align: right;">RS</th>
+                <th style="text-align: right;">RA</th>
+                <th style="text-align: right;">DIFF</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedB.map((r, i) => {
+                const isHawks = r.team === 'Hamel Hawks';
+                const rs = r.rs ?? 0;
+                const ra = r.ra ?? 0;
+                const diff = rs - ra;
+                return (
+                  <tr class={isHawks ? 'is-hawks' : ''}>
+                    <td style={`text-align: center; font-family: var(--font-display); font-size: 16px; ${i < 2 ? 'color: var(--accent);' : ''}`}>
+                      {i + 1}{i < 2 && <span style="margin-left: 4px; color: var(--accent);">★</span>}
+                    </td>
+                    <td class={isHawks ? 'team-hawks' : ''}>
+                      {isHawks && <span style="color: var(--accent); margin-right: 8px;">★</span>}{r.team}
+                    </td>
+                    <td style="text-align: right;">{r.w}</td>
+                    <td style="text-align: right;">{r.l}</td>
+                    <td style="text-align: right;">{fmt3(r.pct)}</td>
+                    <td style="text-align: right;">{r.gb}</td>
+                    <td style={`text-align: right; ${r.streak.startsWith('W') ? 'color: var(--accent);' : 'color: var(--fg-muted);'}`}>{r.streak}</td>
+                    <td style="text-align: right;">{rs}</td>
+                    <td style="text-align: right;">{ra}</td>
+                    <td style={`text-align: right; ${diff > 0 ? 'color: var(--accent);' : 'color: var(--fg-muted);'}`}>{diff > 0 ? '+' : ''}{diff}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <div class="stand-head">
+          <h2 class="century" style="font-size: 56px; color: var(--navy); line-height: 0.9;">CLASS C</h2>
+          <span class="stand-meta">North Star League · 2026</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="table" style="width: 100%;">
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;">#</th>
+                <th>Team</th>
+                <th style="text-align: right;">W</th>
+                <th style="text-align: right;">L</th>
+                <th style="text-align: right;">PCT</th>
+                <th style="text-align: right;">GB</th>
+                <th style="text-align: right;">Strk</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedC.map((r, i) => {
+                const isHawks = r.team === 'Hamel Hawks';
+                return (
+                  <tr class={isHawks ? 'is-hawks' : ''}>
+                    <td style={`text-align: center; font-family: var(--font-display); font-size: 16px; ${i < 2 ? 'color: var(--accent);' : ''}`}>
+                      {i + 1}{i < 2 && <span style="margin-left: 4px; color: var(--accent);">★</span>}
+                    </td>
+                    <td class={isHawks ? 'team-hawks' : ''}>
+                      {isHawks && <span style="color: var(--accent); margin-right: 8px;">★</span>}{r.team}
+                    </td>
+                    <td style="text-align: right;">{r.w}</td>
+                    <td style="text-align: right;">{r.l}</td>
+                    <td style="text-align: right;">{fmt3(r.pct)}</td>
+                    <td style="text-align: right;">{r.gb}</td>
+                    <td style={`text-align: right; ${r.streak.startsWith('W') ? 'color: var(--accent);' : 'color: var(--fg-muted);'}`}>{r.streak}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .stand-head {
+    display: flex; align-items: baseline; gap: 20px;
+    border-bottom: 2px solid var(--navy);
+    padding-bottom: 14px; margin-bottom: 24px;
+  }
+  .stand-meta {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted);
+  }
+  .is-hawks { background: rgba(201,163,91,0.15) !important; }
+  .team-hawks {
+    font-family: var(--font-display); font-size: 16px; font-weight: 400;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+</style>

@@ -1,0 +1,146 @@
+---
+import Base from '../layouts/Base.astro';
+import { PREMIER, SUPPORTING } from '../data/sponsors.ts';
+---
+<Base title="Sponsors · Hamel Hawks Centennial" page="sponsors">
+  <section class="section section-dark page-hero" style="padding: 80px 0 50px;">
+    <div class="wrap">
+      <div class="spon-hero-grid">
+        <div>
+          <div class="eyebrow" style="color: var(--gold);">★ Centennial Partners</div>
+          <h1 class="display" style="color: var(--cream); margin-top: 18px;">
+            The local businesses<br />
+            <span style="color: var(--gold); font-style: italic; font-family: var(--font-serif); font-weight: 500; text-transform: none; letter-spacing: -0.01em;">that make 100 years possible.</span>
+          </h1>
+          <p class="lede" style="margin-top: 24px;">
+            For a hundred summers, town ball in Hamel has been built on local support.
+            A century of business owners, fans, and neighbors who keep the gates open.
+          </p>
+        </div>
+        <div style="padding-bottom: 12px;">
+          <a href="/contact" class="btn btn-gold">Become a Centennial Sponsor →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper">
+    <div class="wrap">
+      <div class="spon-section-head">
+        <div>
+          <div class="eyebrow">Premier Partners</div>
+          <h2 class="headline" style="margin-top: 14px;">The cornerstone supporters.</h2>
+        </div>
+        <span class="spon-section-note">Outfield wall · Program · Gate</span>
+      </div>
+      <div class="premier-grid">
+        {PREMIER.map((s) => (
+          <a href={s.url} target="_blank" rel="noopener" class="premier-card">
+            <div class="premier-kicker">★ Premier Partner · Since {s.since}</div>
+            <div class="premier-name">{s.name}</div>
+            <p class="premier-desc">{s.desc}</p>
+            <div class="premier-cta">Visit →</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--cream-soft);">
+    <div class="wrap">
+      <div class="eyebrow">Supporting Partners</div>
+      <h2 class="headline" style="margin-top: 14px; margin-bottom: 40px;">Community pillars.</h2>
+      <div class="support-grid">
+        {SUPPORTING.map((s) => (
+          <a href={s.url} target="_blank" rel="noopener" class="support-card">
+            <div class="support-kicker">Supporting Partner</div>
+            <div class="support-name">{s.name}</div>
+            <p class="support-desc">{s.desc}</p>
+            <div class="support-cta">Visit →</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-deep" style="text-align: center;">
+    <div class="wrap" style="max-width: 800px;">
+      <div class="century" style="font-size: 140px; color: var(--gold); letter-spacing: -0.06em;">100</div>
+      <h2 class="headline" style="color: var(--cream); margin-top: -10px;">
+        Be part of the <em>next chapter.</em>
+      </h2>
+      <p class="lede" style="margin: 24px auto 32px;">
+        Centennial sponsorship packages are available now — outfield wall panels,
+        program ads, gate-day sponsorships, and limited Centennial Banner placements.
+      </p>
+      <a href="mailto:gregd.hamelhawks@gmail.com?subject=Centennial%20Sponsorship" class="btn btn-gold">Email Greg DeVos</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .spon-hero-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 60px; align-items: end;
+  }
+  @media (max-width: 880px) { .spon-hero-grid { grid-template-columns: 1fr; } }
+  .spon-section-head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 40px; flex-wrap: wrap; gap: 16px;
+  }
+  .spon-section-note {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted);
+  }
+  .premier-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .premier-card {
+    background: var(--navy); color: var(--cream);
+    padding: 40px 36px; border: 1px solid var(--gold);
+    display: flex; flex-direction: column; gap: 16px;
+    min-height: 280px; position: relative;
+    transition: transform 200ms;
+  }
+  .premier-card:hover { transform: translateY(-4px); }
+  .premier-kicker {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.24em; color: var(--gold); text-transform: uppercase;
+  }
+  .premier-name {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 32px; line-height: 1.1;
+  }
+  .premier-desc { font-size: 15px; color: rgba(241,230,204,0.7); line-height: 1.5; }
+  .premier-cta {
+    margin-top: auto;
+    font-family: var(--font-display); font-size: 13px;
+    letter-spacing: 0.18em; color: var(--gold);
+  }
+  .support-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0;
+  }
+  .support-card {
+    background: transparent; color: var(--navy);
+    padding: 32px 30px; border: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 12px;
+    min-height: 200px; transition: background 200ms;
+  }
+  .support-card:hover { background: rgba(201,163,91,0.1); }
+  .support-kicker {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase;
+  }
+  .support-name {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 24px; line-height: 1.15;
+  }
+  .support-desc { font-size: 14px; color: var(--fg-muted); line-height: 1.5; }
+  .support-cta {
+    margin-top: auto;
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.18em; color: var(--accent);
+  }
+</style>
