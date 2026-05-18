@@ -239,6 +239,39 @@ body::before {
     border-bottom: 2px solid var(--gold);
   }
   .nav.open .navlinks a { padding: 14px; border-bottom: 1px solid var(--rule-on-dark); }
+  /* Mobile: override desktop's inline-flex on .has-sub so it spans full
+     width and its inner anchor gets the same full-row underline as
+     siblings. Also inline-expand the submenu since hover doesn't exist
+     on mobile. */
+  .nav.open .navlinks .has-sub {
+    display: block;
+    width: 100%;
+  }
+  .nav.open .navlinks .has-sub > a {
+    display: block;
+    width: 100%;
+  }
+  .nav.open .navlinks .has-sub > a::after {
+    display: none;
+  }
+  .nav.open .navlinks .has-sub .submenu {
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    border: 0;
+    background: transparent;
+    padding: 0 0 0 16px;
+    min-width: 0;
+  }
+  .nav.open .navlinks .has-sub .submenu a {
+    display: block;
+    padding: 12px 14px;
+    font-size: 14px;
+    color: rgba(241, 230, 204, 0.85);
+    border-bottom: 1px solid var(--rule-on-dark);
+  }
+  .nav.open .navlinks .has-sub .submenu a:last-child { border-bottom: 0; }
 }
 
 /* ===== Section primitives ===== */
