@@ -233,12 +233,19 @@ body::before {
   }
   .nav.open .navlinks {
     display: flex; flex-direction: column;
+    align-items: stretch;        /* override desktop center-align — full-width rows */
+    justify-content: flex-start; /* override desktop center */
     position: absolute; top: 84px; left: 0; right: 0;
     background: var(--navy-deep);
     padding: 16px;
     border-bottom: 2px solid var(--gold);
   }
-  .nav.open .navlinks a { padding: 14px; border-bottom: 1px solid var(--rule-on-dark); }
+  .nav.open .navlinks a {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-bottom: 1px solid var(--rule-on-dark);
+  }
   /* Mobile: override desktop's inline-flex on .has-sub so it spans full
      width and its inner anchor gets the same full-row underline as
      siblings. Also inline-expand the submenu since hover doesn't exist
