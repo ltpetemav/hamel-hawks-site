@@ -166,6 +166,19 @@ body::before {
   height: 2px; background: var(--red);
 }
 .navlinks .has-sub { position: relative; }
+.navlinks .has-sub > a::after {
+  content: '▾';
+  margin-left: 6px;
+  font-size: 0.78em;
+  display: inline-block;
+  transform: translateY(-1px);
+  opacity: 0.55;
+  transition: transform 160ms, opacity 160ms;
+}
+.navlinks .has-sub:hover > a::after {
+  opacity: 1;
+  transform: translateY(0) rotate(180deg);
+}
 .navlinks .has-sub:hover .submenu { opacity: 1; pointer-events: auto; transform: translateY(0); }
 .submenu {
   position: absolute;
